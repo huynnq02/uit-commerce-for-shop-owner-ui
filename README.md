@@ -1,1 +1,1 @@
-# Admin-NaverShop-FE-Team1
+# Admin - NaverShopFE - Ecommerce
