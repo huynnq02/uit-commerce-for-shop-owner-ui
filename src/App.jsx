@@ -5,10 +5,12 @@ import List from "./components/pages/List/List";
 import New from "./components/pages/New/New";
 import Single from "./components/pages/Single/Single";
 import Login from "./components/pages/Login/Login";
+import ManageOrder from "./components/pages/ManageOrder/ManageOrder";
 import { productInputs, userInputs } from "./formSource";
 function App() {
   return (
     <div className="App">
+      <ManageOrder/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
@@ -22,6 +24,7 @@ function App() {
           <Route path=":productId" element={<Single />} />
           <Route path="new" element={<New inputs={productInputs} title="Add New Product" />} />
         </Route>
+        <Route path="manageOrder" element={<ManageOrder/>} />
       </Routes>
     </div>
   );
