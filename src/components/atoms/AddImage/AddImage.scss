@@ -1,0 +1,32 @@
+.add-image {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  .img-display {
+    display: flex;
+    gap: 10px;
+    .button {
+      padding: 10px;
+      border: 1px blue dashed;
+      box-sizing: border-box;
+      label {
+        height: 90px;
+        width: 90px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      input {
+        display: none;
+      }
+    }
+    img {
+      width: 112px;
+      height: 112px;
+      object-fit: cover;
+      border: solid 1px grey;
+    }
+  }
+}

@@ -1,0 +1,38 @@
+.add-product {
+  display: flex;
+  width: 100%;
+  &__left {
+    flex: 0.6;
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+
+      .formInput {
+        width: 80%;
+
+        label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          .icon {
+            cursor: pointer;
+          }
+        }
+
+        input {
+          width: 100%;
+          padding: 5px;
+          padding: 5px;
+          margin-top: 10px;
+          border-radius: 5px;
+          border: 1px solid gray;
+        }
+      }
+    }
+  }
+  &__right {
+    flex: 0.4;
+  }
+}
