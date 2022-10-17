@@ -12,47 +12,6 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 
-// const TabNavigationBar = () => {
-//     const [selectedTab, setSelectedTab] = useTabs ([
-//         "All orders",
-//         "Dispatch",
-//         "Pending",
-//         "Completed",
-//     ]);
-
-//     return (
-//         <div className='tabNavigationBar'>
-//             {/* <nav>
-//                 <TabSelector
-//                 isActive = {selectedTab === "All orders"}
-//                 onClick={() => setSelectedTab("All orders")}>
-//                     All orders
-//                 </TabSelector>
-//                 <TabSelector
-//                 isActive = {selectedTab === "Dispatch"}
-//                 onClick={() => setSelectedTab("Dispatch")}>
-//                     Dispatch
-//                 </TabSelector>
-//                 <TabSelector
-//                 isActive = {selectedTab === "Pending"}
-//                 onClick={() => setSelectedTab("Pending")}>
-//                     Pending
-//                 </TabSelector>
-//                 <TabSelector
-//                 isActive = {selectedTab === "Completed"}
-//                 onClick={() => setSelectedTab("Completed")}>
-//                     Completed
-//                 </TabSelector>
-//             </nav> */}
-//             <div className='containerTabSelector'>
-//                 <TabPanel hidden={selectedTab !== 'All orders'}>Full Order</TabPanel>
-//                 <TabPanel hidden={selectedTab !== 'Dispatch'}>Dispatched list</TabPanel>
-//                 <TabPanel hidden={selectedTab !== 'Pending'}>Pending list orders</TabPanel>
-//                 <TabPanel hidden={selectedTab !== 'Completed'}>Completed Orders</TabPanel>
-//             </div>
-//         </div>
-//     );
-// }
 
 const TabNavigationBarMUI = () => {
   const [value, setValue] = React.useState("1");
