@@ -25,7 +25,7 @@ const Datatable = () => {
       headerName: "Email",
       width: 230,
     },
-  
+
     {
       field: "age",
       headerName: "Age",
@@ -130,10 +130,6 @@ const Datatable = () => {
 
   const [data, setData] = useState(userRows);
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
-  };
-
   const actionColumn = [
     {
       field: "action",
@@ -143,14 +139,11 @@ const Datatable = () => {
         return (
           <div className="cellAction">
             <Link to="/users/view" style={{ textDecoration: "none" }}>
-              <div className="viewButton">View</div>
+              <div className="viewButton">VIEW</div>
             </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
-            >
-              Delete
-            </div>
+            <Link to="/users/edit" style={{ textDecoration: "none" }}>
+              <div className="editButton">EDIT</div>
+            </Link>
           </div>
         );
       },
@@ -177,4 +170,3 @@ const Datatable = () => {
 };
 
 export default Datatable;
-
