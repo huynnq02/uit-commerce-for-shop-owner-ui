@@ -5,6 +5,7 @@ import List from "./components/pages/List/List";
 import New from "./components/pages/New/New";
 import Single from "./components/pages/Single/Single";
 import Login from "./components/pages/Login/Login";
+import ManageOrder from "./components/pages/ManageOrder/ManageOrder";
 import UserProvider from "./Context/UserContext/UserProvider";
 import AuthProvider from "./Context/AuthContext/AuthProvider";
 import PrivateRoute from "./PrivateRoute";
@@ -39,6 +40,9 @@ function App() {
                     <New inputs={productInputs} title="Add New Product" />
                   }
                 />
+              </Route>
+              <Route path="orders">
+                <Route index element={<ManageOrder />} />
               </Route>
             </Route>
           </Routes>
