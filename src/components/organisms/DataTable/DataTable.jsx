@@ -2,15 +2,16 @@ import "./DataTable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-
+import Box from "@mui/material/Box";
 const Datatable = () => {
   // Data for tesing
   const userColumns = [
-    { field: "id", headerName: "ID", width: 70 },
+    { field: "id", headerName: "ID", headerClassName: "addColor", width: 70 },
     {
       field: "user",
       headerName: "User",
-      width: 230,
+      headerClassName: "addColor",
+      width: 250,
       renderCell: (params) => {
         return (
           <div className="cellWithImg">
@@ -23,18 +24,21 @@ const Datatable = () => {
     {
       field: "email",
       headerName: "Email",
-      width: 230,
+      headerClassName: "addColor",
+      width: 250,
     },
 
     {
       field: "age",
       headerName: "Age",
+      headerClassName: "addColor",
       width: 100,
     },
     {
       field: "status",
       headerName: "Status",
-      width: 160,
+      headerClassName: "addColor",
+      width: 200,
       renderCell: (params) => {
         return (
           <div className={`cellWithStatus ${params.row.status}`}>
@@ -134,7 +138,8 @@ const Datatable = () => {
     {
       field: "action",
       headerName: "Action",
-      width: 200,
+      headerClassName: "addColor",
+      width: 350,
       renderCell: (params) => {
         return (
           <div className="cellAction">
@@ -150,22 +155,31 @@ const Datatable = () => {
     },
   ];
   return (
-    <div className="datatable">
-      <div className="datatableTitle">
-        User Dashboard
-        <Link to="/users/new" className="link">
-          Add New
-        </Link>
+    <Box
+      sx={{
+        width: "100%",
+        "& .addColor": {
+          backgroundColor: "#2A254B",
+        },
+      }}
+    >
+      <div className="datatable">
+        <div className="datatableTitle">
+          User Dashboard
+          <Link to="/users/new" className="link">
+            Add New
+          </Link>
+        </div>
+
+        <DataGrid
+          className="datagrid"
+          rows={data}
+          columns={userColumns.concat(actionColumn)}
+          pageSize={9}
+          rowsPerPageOptions={[9]}
+        />
       </div>
-      <DataGrid
-        className="datagrid"
-        rows={data}
-        columns={userColumns.concat(actionColumn)}
-        pageSize={9}
-        rowsPerPageOptions={[9]}
-        checkboxSelection
-      />
-    </div>
+    </Box>
   );
 };
 

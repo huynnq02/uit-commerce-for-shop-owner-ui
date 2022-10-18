@@ -1,6 +1,11 @@
 .datatable {
   height: 600px;
   padding: 20px;
+  .datagrid {
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+  }
 
   .datatableTitle {
     width: 100%;
@@ -13,10 +18,10 @@
 
     .link {
       text-decoration: none;
-      color: green;
+      color: rgb(53, 159, 245);
       font-size: 16px;
       font-weight: 400;
-      border: 1px solid green;
+      border: 1.5px solid #2a254b;
       padding: 10px;
       border-radius: 10px;
       cursor: pointer;
