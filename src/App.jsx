@@ -10,6 +10,9 @@ import UserProvider from "./Context/UserContext/UserProvider";
 import AuthProvider from "./Context/AuthContext/AuthProvider";
 import PrivateRoute from "./PrivateRoute";
 import { productInputs, userInputs } from "./formSource";
+import AddProduct from "./components/pages/AddProduct/AddProduct";
+import DetailProduct from "./components/pages/DetailProduct/DetailProduct";
+import ListProduct from "./components/pages/ListProduct/ListProduct";
 function App() {
   return (
     <div className="App">
@@ -32,15 +35,10 @@ function App() {
                 />
               </Route>
               <Route path="products">
-                <Route index element={<List />} />
-                <Route path=":productId" element={<Single />} />
-                <Route
-                  path="new"
-                  element={
-                    <New inputs={productInputs} title="Add New Product" />
-                  }
-                />
-              </Route>
+                <Route index element={<ListProduct />} />
+                <Route path=":productId" element={<DetailProduct />} />
+                <Route path="new" element={<AddProduct />} />
+            </Route>
               <Route path="orders">
                 <Route index element={<ManageOrder />} />
               </Route>

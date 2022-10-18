@@ -1,0 +1,51 @@
+/**
+ * scss for product's add color components
+ * file: AddColor.scss
+ */
+.add-color {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  .label {
+    display: flex;
+    align-items: center;
+  }
+  .add {
+    display: flex;
+    input {
+      border: 1px solid gray;
+      color: black;
+      border-right: none;
+      padding: 5px;
+      border-bottom-left-radius: 2px;
+      border-top-left-radius: 2px;
+    }
+
+    .btn {
+      border: 1px solid gray;
+      padding: 5px;
+      color: white;
+      border-bottom-right-radius: 2px;
+      border-top-right-radius: 2px;
+      background-color: #2a254b;
+      cursor: pointer;
+    }
+  }
+  .group-color {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+.color {
+  min-width: 50px;
+  padding: 10px;
+  border: 1px solid grey;
+  color: grey;
+  border-radius: 2px;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
