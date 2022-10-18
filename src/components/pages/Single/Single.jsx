@@ -3,8 +3,44 @@ import Sidebar from "../../molecules/Sidebar/Sidebar";
 import Navbar from "../../molecules/Navbar/Navbar";
 import Chart from "../../atoms/Chart/Chart";
 import List from "../../organisms/Table/Table";
-
+import { useParams } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
+import { doc, getDoc, collection, updateDoc } from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { db, storage } from "../../../firebase/firebase-config";
+/**
+ * View Detail Users
+ *
+ */
+const USER = {
+  status: true,
+  address: "",
+  fullname: "",
+  password: "",
+  phonenumber: "",
+  email: "",
+  status: "",
+  age: 0,
+};
 const Single = () => {
+  const [user, setUser] = useState(USER);
+
+  let { userId } = useParams();
+  useEffect(() => {
+    (async () => {
+      if (!userId) return;
+      else {
+        const docRef = doc(db, "users", userId);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setUser(data);
+        } else {
+          console.log("no data");
+        }
+      }
+    })();
+  }, [userId]);
   return (
     <div className="single">
       <Sidebar />
@@ -15,25 +51,27 @@ const Single = () => {
             <h1 className="title">Information</h1>
             <div className="item">
               <img
-                src="https://images.unsplash.com/photo-1504376379689-8d54347b26c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=536&q=80"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2sC2-8l0V98cNKmtgzZr0vh96kJFm_U3fbV-3-9_tI90QKfW0x8L1iRAYbWGkxQZL5_c&usqp=CAU"
                 alt=""
                 className="itemImg"
               />
               <div className="details">
-                <h1 className="itemTitle">Bé Châu Phi</h1>
+                <h1 className="itemTitle">{user.fullname}</h1>
                 <div className="detailItem">
                   <span className="itemKey">Phone :</span>
-                  <span className="itemKey">0926828605</span>
+                  <span className="itemKey">{user.phonenumber}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Address :</span>
-                  <span className="itemKey">
-                    336 Võ Văn Ngân, Bình Thọ, Thủ Đức, Thành phố Hồ Chí Minh
-                  </span>
+                  <span className="itemKey">{user.address}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Country :</span>
-                  <span className="itemKey">VietNam</span>
+                  <span className="itemKey">Email :</span>
+                  <span className="itemKey">{user.email}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Status :</span>
+                  <span className="itemKey">{user.status}</span>
                 </div>
               </div>
             </div>
