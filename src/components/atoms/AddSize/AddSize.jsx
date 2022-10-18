@@ -5,26 +5,18 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import PropTypes from "prop-types";
+
 const AddSize = ({ handleChange, sizes }) => {
   const [size, setSize] = useState(SIZES);
 
   useEffect(() => {
-    let newList = size.map((item) => {
-      if (sizes.includes(item.name, 0)) return { ...item, value: true };
+    let newList = SIZES.map((item) => {
+      if (sizes.includes(item.name)) return { name: item.name, value: true };
       else return item;
     });
     setSize(newList);
-  }, []);
+  }, [sizes]);
 
-  useEffect(() => {
-    let arrSizes = [];
-    let newValue = size.map((item) => {
-      if (item.value) {
-        arrSizes.push(item.name);
-      }
-    });
-    handleChange(arrSizes);
-  }, [size]);
 
   /**
    * handle when change checked sizes
@@ -38,7 +30,14 @@ const AddSize = ({ handleChange, sizes }) => {
       }
       return item;
     });
-    setSize(updateArr);
+
+    let arrSizes = [];
+    let newValue = updateArr.map((item) => {
+      if (item.value) {
+        arrSizes.push(item.name);
+      }
+    });
+    handleChange(arrSizes);
   };
   return (
     <FormControl style={{ width: "80%" }}>
@@ -54,6 +53,12 @@ const AddSize = ({ handleChange, sizes }) => {
               control={
                 <Checkbox
                   checked={size[index].value}
+                  sx={{
+                    color: "#2A254B",
+                    "&.Mui-checked": {
+                      color: "#2A254B",
+                    },
+                  }}
                   onChange={(e) => _handleChangeSizes(e, index)}
                   name={item}
                 />

@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Popup from "../Popup/Popup";
 import "./AddImage.scss";
 import PropsType from "prop-types";
 const AddImage = ({ handleChangeImage, displayImage }) => {
   const [image, setImage] = useState(displayImage);
   const [open, setOpen] = useState(false);
-
+  useEffect(() => {
+    if (typeof displayImage === "string") {
+      setImage(displayImage);
+    }
+  }, [displayImage]);
   /**
    * handle when select other files
    * @private

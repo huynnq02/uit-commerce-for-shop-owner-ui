@@ -1,6 +1,11 @@
 .detail-product {
   display: flex;
+  flex-direction: column;
   width: 100%;
+  &__container {
+    display: flex;
+    width: 100%;
+  }
   &__left {
     flex: 0.6;
     form {
@@ -25,6 +30,7 @@
           width: 100%;
           padding: 5px;
           margin-top: 10px;
+          border-radius: 5px;
           border: 1px solid gray;
         }
       }
@@ -32,5 +38,10 @@
   }
   &__right {
     flex: 0.4;
+  }
+  &__foot {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 20px 10px 0;
   }
 }

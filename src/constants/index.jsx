@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import "./constants.scss";
 export const CATEGORIES = [
   "Quần Dài Form Tiêu Chuẩn",
-  "Áo khoác",
+  "Áo Khoác",
   "Áo Thun",
-  "Áo thun form rộng",
+  "Áo Thun Form Rộng",
+  "Áo Thun Form Tiêu Chuẩn",
+  "Quần Short Form Trên Gối",
 ];
 export const STR_SIZES = ["S", "M", "L", "XL", "XXL"];
 
@@ -62,7 +64,7 @@ export const DATA_INPUT_PRODUCT = [
 ];
 
 export const PRODUCT_COLUMNS = [
-  { field: "id", headerClassName: "header-DG", headerName: "ID", width: 70 },
+  { field: "id", headerClassName: "header-DG", headerName: "ID", width: 170 },
   {
     field: "name",
     headerName: "Product Name",
@@ -94,12 +96,12 @@ export const PRODUCT_COLUMNS = [
       return (
         <div
           className={
-            params.row.status
+            params.row.active
               ? `cellWithStatus active`
               : `cellWithStatus passive`
           }
         >
-          {params.row.status ? "active" : "passive"}
+          {params.row.active ? "active" : "passive"}
         </div>
       );
     },
@@ -133,7 +135,10 @@ export const ACTION_COLUMN = [
     renderCell: (params) => {
       return (
         <div className="cellAction">
-          <Link to="/products/view" style={{ textDecoration: "none" }}>
+          <Link
+            to={`/products/${params.row.id}`}
+            style={{ textDecoration: "none" }}
+          >
             <div className="viewButton">View</div>
           </Link>
         </div>

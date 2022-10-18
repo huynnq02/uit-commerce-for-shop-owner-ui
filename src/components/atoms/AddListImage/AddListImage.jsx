@@ -10,6 +10,10 @@ const AddListImage = ({ listImages, handleChangeImage }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    setImages(listImages);
+  }, [listImages]);
+
+  useEffect(() => {
     setImageURLs(() => []);
     if (images.length < 1) return;
     let newImageURLs = [];
@@ -129,7 +133,7 @@ const AddListImage = ({ listImages, handleChangeImage }) => {
         <div className="list-img">
           {imageURLs.map((item, index) => {
             return (
-              <div key={index} className="img">
+              <div key={index} className="image">
                 <img
                   onClick={() => _handleClickImage(item)}
                   key={index}

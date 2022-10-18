@@ -1,7 +1,6 @@
 import "./AddNew.scss";
 import Sidebar from "../Sidebar/Sidebar";
 import Navbar from "../Navbar/Navbar";
-
 const AddNew = ({ children, title }) => {
   return (
     <div className="new">
@@ -13,9 +12,6 @@ const AddNew = ({ children, title }) => {
           <h1>{title}</h1>
         </div>
         <div className="bottom">{children}</div>
-        <div className="btn">
-          <button>Send</button>
-        </div>
       </div>
     </div>
   );

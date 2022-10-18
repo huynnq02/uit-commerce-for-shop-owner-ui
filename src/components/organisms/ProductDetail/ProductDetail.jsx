@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { doc, getDoc, collection, updateDoc } from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { db, storage } from "../../../firebase/firebase-config";
 import AddListImage from "../../atoms/AddListImage/AddListImage";
 import AddColor from "../../atoms/AddColor/AddColor";
 import AddImage from "../../atoms/AddImage/AddImage";
@@ -8,27 +12,44 @@ import AddSize from "../../atoms/AddSize/AddSize";
 import ActiveStatus from "../../atoms/ActiveStatus/ActiveStatus";
 import "./ProductDetail.scss";
 import { DATA_INPUT_PRODUCT } from "../../../constants";
+import CircularUnderLoad from "../../atoms/CircularLoading/CircularLoading";
+import Button from "../../atoms/Button/Button";
 const PRODUCT = {
-  acitve: true,
+  active: true,
   category: "Quần Dài Form Tiêu Chuẩn",
-  color: ["black"],
+  color: [],
   name: "Quần Tây Tối Giản HG17",
   description:
     "Chất liệu: Vải Quần Tây Thành phần: 82% polyester 14% rayon 4% spandex",
-  detailImages: [
-    "https://cdn2.yame.vn/pimg/quan-tay-y2010-hg17-0019806/01959bc5-3bda-7400-10d9-00176ef1bda7.jpg?w=800",
-    "https://cdn2.yame.vn/pimg/quan-tay-y2010-hg17-0019806/36decd98-d058-7900-e7c0-00176ef1bdd7.jpg?w=800",
-  ],
-  image:
-    "https://cdn2.yame.vn/pimg/quan-tay-y2010-hg17-0019806/a1c9cfea-0740-3500-49de-00176e52de84.jpg?w=800",
+  detailImages: [],
+  image: "",
   price: 325000,
   quantities: 70,
   sales: 0,
-  sizes: ["M", "L", "XL", "XXL"],
+  sizes: [],
   sold: 0,
 };
 const ProductDetail = () => {
   const [product, setProduct] = useState(PRODUCT);
+  const [url, setUrls] = useState([]);
+  const [imgUrl, setImgUrl] = useState(product.image);
+  const [open, setOpen] = useState(false);
+  let { productId } = useParams();
+  useEffect(() => {
+    (async () => {
+      if (!productId) return;
+      else {
+        const docRef = doc(db, "products", productId);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setProduct(data);
+        } else {
+          console.log("no data");
+        }
+      }
+    })();
+  }, [productId]);
 
   /**
    * handle when value in group input change
@@ -73,10 +94,10 @@ const ProductDetail = () => {
    * @params none
    */
   const _handleChangeActiveStatus = () => {
-    let newActive = !product.acitve;
+    let newActive = !product.active;
     setProduct((prev) => {
       let newArr = { ...prev };
-      newArr.acitve = newActive;
+      newArr.active = newActive;
       return newArr;
     });
   };
@@ -116,9 +137,71 @@ const ProductDetail = () => {
     setProduct({ ...product, ["color"]: colors });
   };
 
+  const _handleSubmit = () => {
+    setOpen(true);
+    _handlePushListImages().then(() => {
+      _handlePushImage().then(async () => {
+        const newRef = doc(collection(db, `products`), productId);
+        await updateDoc(newRef, {
+          active: product.active,
+          category: product.category,
+          color: product.color,
+          description: product.description,
+          name: product.name,
+          price: Number(product.price),
+          quantities: Number(product.quantities),
+          sales: product.sales,
+          sizes: product.sizes,
+        }).then(() => {
+          console.log("success");
+          setOpen(false);
+        });
+      });
+    });
+  };
+  const _handlePushImage = async () => {
+    if (typeof product.image !== "string") {
+      const promises = [];
+      const storageRef = ref(storage, `product-images/${product.image.name}`);
+      promises.push(
+        uploadBytesResumable(storageRef, product.image).then((uploadResult) => {
+          return getDownloadURL(uploadResult.ref);
+        })
+      );
+      const photo = await Promise.all(promises);
+      setImgUrl(photo[0]);
+
+      const newRef = doc(collection(db, `products`), productId);
+      await updateDoc(newRef, { image: photo[0] });
+    }
+  };
+  const _handlePushListImages = async () => {
+    const promises = [];
+    const img = [];
+    for (var i = 0; i < product.detailImages.length; i++) {
+      const file = product.detailImages[i];
+      if (file !== null && typeof file !== "string") {
+        const storageRef = ref(storage, `product-images/${file.name}`);
+
+        promises.push(
+          uploadBytesResumable(storageRef, file).then((uploadResult) => {
+            return getDownloadURL(uploadResult.ref);
+          })
+        );
+      } else {
+        img.push(file);
+      }
+    }
+    const photos = await Promise.all(promises);
+    let imgs = [...img, ...photos];
+    const newRef = doc(collection(db, `products`), productId);
+    await updateDoc(newRef, { detailImages: imgs });
+    setUrls(imgs);
+  };
   return (
-    <div>
-      <div className="detail-product">
+    <div className="detail-product">
+      <CircularUnderLoad open={open} />
+      <div className="detail-product__container">
         <div className="detail-product__left">
           <form className="formInput">
             {DATA_INPUT_PRODUCT.map((item, index) => {
@@ -134,9 +217,16 @@ const ProductDetail = () => {
                 </label>
               );
             })}
+
+            {/* sold */}
+            <label className="formInput">
+              Sold:
+              <input value={product.sold} name={"sold"} disabled />
+            </label>
+
             {/* Change status */}
             <ActiveStatus
-              active={product.acitve}
+              active={product.active}
               onChangeStatus={_handleChangeActiveStatus}
             />
             {/* Add descriptions */}
@@ -168,6 +258,15 @@ const ProductDetail = () => {
             handleChangeImage={_handleAddImage}
           />
         </div>
+      </div>
+      <div className="detail-product__foot">
+        <Button
+          handleClick={_handleSubmit}
+          backgroundColor={"#2A254B"}
+          color={"white"}
+          content="Submit"
+          radius={5}
+        />
       </div>
     </div>
   );
