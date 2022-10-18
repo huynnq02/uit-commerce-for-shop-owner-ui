@@ -1,5 +1,8 @@
-import React, { useState } from "react";
-import "./Product.scss";
+/**
+ * Add Product component
+ * file: Product.jsx
+ */
+import React, { useState, useRef } from "react";
 import { db, storage } from "../../../firebase/firebase-config";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
@@ -13,6 +16,8 @@ import AddSize from "../../atoms/AddSize/AddSize";
 import ActiveStatus from "../../atoms/ActiveStatus/ActiveStatus";
 import CircularUnderLoad from "../../atoms/CircularLoading/CircularLoading";
 import Button from "../../atoms/Button/Button";
+import AlertMessage from "../../atoms/Alert/Alert";
+import "./Product.scss";
 
 const Product = () => {
   const [descriptions, setDescriptions] = useState("");
@@ -24,6 +29,52 @@ const Product = () => {
   const [detailImages, setDetaiImages] = useState([]);
   const [colors, setColors] = useState([]);
   const [open, setOpen] = useState(false);
+  const [errorMess, setErrorMess] = useState("");
+  const [openMess, setOpenMess] = useState(false);
+  const [errorType, setErrorType] = useState("error");
+  const elementRef = useRef(null);
+
+  /**
+   * handle validate inputs
+   * @private
+   * @params none
+   */
+  const _handleValidation = () => {
+    if (!productInfor.name) {
+      setErrorMess(`Product name can not be empty!`);
+      return false;
+    } else if (productInfor.price < 0 || !productInfor.price) {
+      setErrorMess(`Price can not be empty!`);
+      return false;
+    } else if (productInfor.quantities < 0 || !productInfor.quantities) {
+      setErrorMess(`Quantities can not be empty!`);
+      return false;
+    } else if (productInfor.sales < 0 || productInfor.sales === null) {
+      setErrorMess(`Sales can not be empty!`);
+      return false;
+    } else if (!descriptions) {
+      setErrorMess(`Description can not be empty!`);
+      return false;
+    } else if (!category) {
+      setErrorMess(`Category can not be empty!`);
+      return false;
+    } else if (sizes.length === 0) {
+      setErrorMess(`Size can not be empty!`);
+      return false;
+    } else if (colors.length === 0) {
+      setErrorMess(`Colors can not be empty!`);
+      return false;
+    } else if (!displayImage) {
+      setErrorMess(`Display Image can not be empty!`);
+      return false;
+    } else if (detailImages.length === 0) {
+      setErrorMess(`Detail Images Image can not be empty!`);
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   /**
    * handle when value in group input change
    * @private
@@ -95,35 +146,57 @@ const Product = () => {
   const _handleChangeColor = (color) => {
     setColors(color);
   };
+
+  /**
+   * handle when submit the data to firebase
+   * @private
+   * @params none
+   */
   const _handleSubmit = () => {
-    setOpen(true);
-    (async () => {
-      const newRef = doc(collection(db, "products"));
-      await setDoc(newRef, {
-        active: active,
-        category,
-        color: colors,
-        description: descriptions,
-        name: productInfor.name,
-        price: Number(productInfor.price),
-        quantities: Number(productInfor.quantities),
-        sales: 0,
-        sold: 0,
-        sizes: sizes,
-      })
-        .then(() => {
-          let id = newRef.id;
-          _handlePushImage(id).then(() => {
-            _handlePushListImages(id).then(() => {
-              setOpen(false);
-            });
-          });
+    if (_handleValidation()) {
+      setOpen(true);
+      (async () => {
+        const newRef = doc(collection(db, "products"));
+        await setDoc(newRef, {
+          active: active,
+          category,
+          color: colors,
+          description: descriptions,
+          name: productInfor.name,
+          price: Number(productInfor.price),
+          quantities: Number(productInfor.quantities),
+          sales: 0,
+          sold: 0,
+          sizes: sizes,
         })
-        .catch((e) => {
-          console.log(e);
-        });
-    })();
+          .then(() => {
+            let id = newRef.id;
+            _handlePushImage(id).then(() => {
+              _handlePushListImages(id).then(() => {
+                setOpen(false);
+                setErrorType("success");
+                setErrorMess("Adding success!");
+                setOpenMess(true);
+                elementRef.current?.scrollIntoView({ behavior: "smooth" });
+              });
+            });
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      })();
+    } else {
+      setErrorType("error");
+      setOpenMess(true);
+      elementRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
   };
+
+  /**
+   * handle when push image to storage and push image's link to firestore
+   * @private
+   * @params id
+   */
   const _handlePushImage = async (id) => {
     const promises = [];
     const storageRef = ref(storage, `product-images/${displayImage.name}`);
@@ -138,6 +211,12 @@ const Product = () => {
       image: photo[0],
     });
   };
+
+  /**
+   * handle when push list of detail image to storage and push images's link to firestore
+   * @private
+   * @params id
+   */
   const _handlePushListImages = async (id) => {
     const promises = [];
 
@@ -162,6 +241,15 @@ const Product = () => {
 
   return (
     <div className="add-product">
+      <AlertMessage
+        ref={elementRef}
+        message={errorMess}
+        open={openMess}
+        type={errorType}
+        handleOpen={() => {
+          setOpenMess((prev) => !prev);
+        }}
+      />
       <CircularUnderLoad open={open} />
       <div className="add-product__container">
         <div className="add-product__left">
@@ -173,6 +261,7 @@ const Product = () => {
                   <input
                     value={productInfor[`${item.name}`]}
                     name={item.name}
+                    type={item.type}
                     onChange={_handleChangeValueInput}
                   />
                 </label>

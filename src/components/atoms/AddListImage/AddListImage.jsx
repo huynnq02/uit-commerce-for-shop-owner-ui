@@ -1,3 +1,7 @@
+/**
+ * Product's add list detail image components
+ * file: AddListImage.jsx
+ */
 import React, { useEffect, useState } from "react";
 import Popup from "../Popup/Popup";
 import CloseIcon from "@mui/icons-material/Close";

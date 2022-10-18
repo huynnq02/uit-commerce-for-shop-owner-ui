@@ -1,12 +1,14 @@
-.dialog{
-    background: transparent !important;
-    
-    
+/**
+ * scss for loading Circularcomponents
+ * file: CircularLoading.scss
+ */
+.dialog {
+  background: transparent !important;
 }
 
-.css-1t1j96h-MuiPaper-root-MuiDialog-paper{
-    //background: transparent !important;
-    box-shadow: none !important;
-    max-width: none !important;
-    padding: 10px;
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+  //background: transparent !important;
+  box-shadow: none !important;
+  max-width: none !important;
+  padding: 10px;
 }

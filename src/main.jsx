@@ -5,7 +5,6 @@ import "./scss/index.scss";
 import { ThemeConfig } from "./theme/ThemeConfig";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={ThemeConfig}>

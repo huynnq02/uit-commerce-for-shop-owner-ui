@@ -1,3 +1,7 @@
+/**
+ * Product's add description components
+ * file: AddDescription.jsx
+ */
 import React from "react";
 import "./AddDescription.scss";
 import PropsType from "prop-types";

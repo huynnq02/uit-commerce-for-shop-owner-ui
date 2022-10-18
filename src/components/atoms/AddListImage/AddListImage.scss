@@ -1,3 +1,7 @@
+/**
+ * scss for product's add list detail image components
+ * file: AddListImage.scss
+ */
 .add-list-image {
   display: flex;
   flex-direction: column;
@@ -11,7 +15,7 @@
     .button {
       width: 100%;
       padding: 20px 10px;
-      border: 1px #2A254B dashed;
+      border: 1px #2a254b dashed;
       box-sizing: border-box;
       label {
         display: flex;
@@ -43,7 +47,7 @@
         font-size: 30px;
         cursor: pointer;
       }
-      .image{
+      .image {
         position: relative;
         height: fit-content;
         overflow: hidden;

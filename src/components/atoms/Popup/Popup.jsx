@@ -1,9 +1,15 @@
+/**
+ * Popup component
+ * file: Popup.jsx
+ */
 import React from "react";
 import "./Popup.scss";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import PropsType from "prop-types";
+
 const Popup = ({ children, title, open, handleClose }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("lg"));
@@ -19,5 +25,16 @@ const Popup = ({ children, title, open, handleClose }) => {
     </Dialog>
   );
 };
-
+Popup.propsType = {
+  children: PropsType.node,
+  title: PropsType.string,
+  open: PropsType.bool,
+  handleClose: PropsType.func,
+};
+Popup.defaultProps = {
+  children: null,
+  title: "",
+  open: false,
+  handleClose: () => {},
+};
 export default Popup;

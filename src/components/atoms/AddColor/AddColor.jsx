@@ -1,3 +1,7 @@
+/**
+ * Product's add colors components
+ * file: AddColor.jsx
+ */
 import React, { useState } from "react";
 import "./AddColor.scss";
 import PropTypes from "prop-types";

@@ -1,3 +1,7 @@
+/**
+ * Product's add image components
+ * file: AddImage.jsx
+ */
 import React, { useEffect, useState } from "react";
 import Popup from "../Popup/Popup";
 import "./AddImage.scss";

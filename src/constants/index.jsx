@@ -1,3 +1,7 @@
+/**
+ * Contain the constant values
+ * file: constants/index.jsx
+ */
 import { Link } from "react-router-dom";
 import "./constants.scss";
 export const CATEGORIES = [

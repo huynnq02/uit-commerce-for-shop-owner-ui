@@ -1,10 +1,13 @@
+/**
+ * DataGriview component
+ * file: AddProduct.jsx
+ */
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { PRODUCT_COLUMNS, ACTION_COLUMN } from "../../../constants";
+import PropsType from "prop-types";
 const DataGridView = ({ products }) => {
-
   return (
     <div className="datatable">
       <div className="datatableTitle">
@@ -23,5 +26,11 @@ const DataGridView = ({ products }) => {
     </div>
   );
 };
+DataGridView.propsType = {
+  products: PropsType.array,
+};
 
+DataGridView.defaultProps = {
+  products: [],
+};
 export default DataGridView;

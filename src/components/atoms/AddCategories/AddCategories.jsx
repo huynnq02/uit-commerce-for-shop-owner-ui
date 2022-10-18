@@ -1,3 +1,7 @@
+/**
+ * Product's add category components
+ * file: AddCategories.jsx
+ */
 import React from "react";
 import "./AddCategories.scss";
 import { CATEGORIES } from "../../../constants";

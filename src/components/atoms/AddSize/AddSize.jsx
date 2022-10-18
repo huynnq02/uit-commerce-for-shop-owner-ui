@@ -1,3 +1,7 @@
+/**
+ * Product's add sizes components
+ * file: AddSize.jsx
+ */
 import React, { useEffect, useState } from "react";
 import { STR_SIZES, SIZES } from "../../../constants";
 import FormControl from "@mui/material/FormControl";
@@ -16,7 +20,6 @@ const AddSize = ({ handleChange, sizes }) => {
     });
     setSize(newList);
   }, [sizes]);
-
 
   /**
    * handle when change checked sizes

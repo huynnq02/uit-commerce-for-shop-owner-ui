@@ -1,3 +1,7 @@
+/**
+ * Button components
+ * file: Button.jsx
+ */
 import React from "react";
 import PropTypes from "prop-types";
 import "./Button.scss";

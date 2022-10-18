@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from "react";
+/**
+ * Detail Product and update product component
+ * file: ProductDetail.jsx
+ */
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { doc, getDoc, collection, updateDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../firebase/firebase-config";
+import { DATA_INPUT_PRODUCT } from "../../../constants";
 import AddListImage from "../../atoms/AddListImage/AddListImage";
 import AddColor from "../../atoms/AddColor/AddColor";
 import AddImage from "../../atoms/AddImage/AddImage";
@@ -10,31 +15,33 @@ import AddDescription from "../../atoms/AddDescription/AddDescription";
 import AddCategories from "../../atoms/AddCategories/AddCategories";
 import AddSize from "../../atoms/AddSize/AddSize";
 import ActiveStatus from "../../atoms/ActiveStatus/ActiveStatus";
-import "./ProductDetail.scss";
-import { DATA_INPUT_PRODUCT } from "../../../constants";
 import CircularUnderLoad from "../../atoms/CircularLoading/CircularLoading";
 import Button from "../../atoms/Button/Button";
+import AlertMessage from "../../atoms/Alert/Alert";
+import "./ProductDetail.scss";
 const PRODUCT = {
   active: true,
-  category: "Quần Dài Form Tiêu Chuẩn",
+  category: "",
   color: [],
-  name: "Quần Tây Tối Giản HG17",
-  description:
-    "Chất liệu: Vải Quần Tây Thành phần: 82% polyester 14% rayon 4% spandex",
+  name: "",
+  description: "",
   detailImages: [],
   image: "",
-  price: 325000,
-  quantities: 70,
+  price: 0,
+  quantities: 0,
   sales: 0,
   sizes: [],
   sold: 0,
 };
 const ProductDetail = () => {
   const [product, setProduct] = useState(PRODUCT);
-  const [url, setUrls] = useState([]);
-  const [imgUrl, setImgUrl] = useState(product.image);
   const [open, setOpen] = useState(false);
+  const [errorMess, setErrorMess] = useState("");
+  const [openMess, setOpenMess] = useState(false);
+  const [errorType, setErrorType] = useState("error");
+  const elementRef = useRef(null);
   let { productId } = useParams();
+
   useEffect(() => {
     (async () => {
       if (!productId) return;
@@ -50,6 +57,47 @@ const ProductDetail = () => {
       }
     })();
   }, [productId]);
+
+  /**
+   * handle validate inputs
+   * @private
+   * @params none
+   */
+  const _handleValidation = () => {
+    if (!product.name) {
+      setErrorMess(`Product name can not be empty!`);
+      return false;
+    } else if (product.price < 0 || !product.price) {
+      setErrorMess(`Price can not be empty!`);
+      return false;
+    } else if (product.quantities < 0 || !product.quantities) {
+      setErrorMess(`Quantities can not be empty!`);
+      return false;
+    } else if (product.sales < 0 || product.sales === null) {
+      setErrorMess(`Sales can not be empty!`);
+      return false;
+    } else if (!product.description) {
+      setErrorMess(`Description can not be empty!`);
+      return false;
+    } else if (!product.category) {
+      setErrorMess(`Category can not be empty!`);
+      return false;
+    } else if (product.sizes.length === 0) {
+      setErrorMess(`Size can not be empty!`);
+      return false;
+    } else if (product.color.length === 0) {
+      setErrorMess(`Colors can not be empty!`);
+      return false;
+    } else if (!product.image) {
+      setErrorMess(`Display Image can not be empty!`);
+      return false;
+    } else if (product.detailImages.length === 0) {
+      setErrorMess(`Detail Images Image can not be empty!`);
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   /**
    * handle when value in group input change
@@ -137,28 +185,48 @@ const ProductDetail = () => {
     setProduct({ ...product, ["color"]: colors });
   };
 
+  /**
+   * handle when submit the data to firebase
+   * @private
+   * @params none
+   */
   const _handleSubmit = () => {
-    setOpen(true);
-    _handlePushListImages().then(() => {
-      _handlePushImage().then(async () => {
-        const newRef = doc(collection(db, `products`), productId);
-        await updateDoc(newRef, {
-          active: product.active,
-          category: product.category,
-          color: product.color,
-          description: product.description,
-          name: product.name,
-          price: Number(product.price),
-          quantities: Number(product.quantities),
-          sales: product.sales,
-          sizes: product.sizes,
-        }).then(() => {
-          console.log("success");
-          setOpen(false);
+    if (_handleValidation()) {
+      setOpen(true);
+      _handlePushListImages().then(() => {
+        _handlePushImage().then(async () => {
+          const newRef = doc(collection(db, `products`), productId);
+          await updateDoc(newRef, {
+            active: product.active,
+            category: product.category,
+            color: product.color,
+            description: product.description,
+            name: product.name,
+            price: Number(product.price),
+            quantities: Number(product.quantities),
+            sales: product.sales,
+            sizes: product.sizes,
+          }).then(() => {
+            setOpen(false);
+            setErrorType("success");
+            setErrorMess("Update success!");
+            setOpenMess(true);
+            elementRef.current?.scrollIntoView({ behavior: "smooth" });
+          });
         });
       });
-    });
+    } else {
+      setErrorType("error");
+      setOpenMess(true);
+      elementRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
   };
+
+  /**
+   * handle when push image to storage and push image's link to firestore
+   * @private
+   * @params id
+   */
   const _handlePushImage = async () => {
     if (typeof product.image !== "string") {
       const promises = [];
@@ -169,12 +237,17 @@ const ProductDetail = () => {
         })
       );
       const photo = await Promise.all(promises);
-      setImgUrl(photo[0]);
 
       const newRef = doc(collection(db, `products`), productId);
       await updateDoc(newRef, { image: photo[0] });
     }
   };
+
+  /**
+   * handle when push list of detail image to storage and push images's link to firestore
+   * @private
+   * @params id
+   */
   const _handlePushListImages = async () => {
     const promises = [];
     const img = [];
@@ -196,11 +269,19 @@ const ProductDetail = () => {
     let imgs = [...img, ...photos];
     const newRef = doc(collection(db, `products`), productId);
     await updateDoc(newRef, { detailImages: imgs });
-    setUrls(imgs);
   };
   return (
     <div className="detail-product">
       <CircularUnderLoad open={open} />
+      <AlertMessage
+        ref={elementRef}
+        message={errorMess}
+        open={openMess}
+        type={errorType}
+        handleOpen={() => {
+          setOpenMess((prev) => !prev);
+        }}
+      />
       <div className="detail-product__container">
         <div className="detail-product__left">
           <form className="formInput">
