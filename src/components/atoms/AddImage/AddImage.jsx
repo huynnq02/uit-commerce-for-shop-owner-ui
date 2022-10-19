@@ -70,6 +70,7 @@ const AddImage = ({ handleChangeImage, displayImage }) => {
         setImage(reader.result);
       }
     };
+    handleChangeImage(e.dataTransfer.files[0]);
     reader.readAsDataURL(e.dataTransfer.files[0]);
   };
 
