@@ -2,8 +2,8 @@ import "./DataTable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
-const DataTable = ({users}) => {
-  // Data for firebase
+const DataTable = ({ users }) => {
+  // Data info user from firebase
   const userColumns = [
     { field: "id", headerName: "ID", headerClassName: "addColor", width: 150 },
     {
@@ -11,7 +11,6 @@ const DataTable = ({users}) => {
       headerName: "User",
       headerClassName: "addColor",
       width: 250,
-
     },
     {
       field: "email",
@@ -50,10 +49,10 @@ const DataTable = ({users}) => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-                      <Link
-            to={`/users/${params.row.id}`}
-            style={{ textDecoration: "none" }}
-          >
+            <Link
+              to={`/users/${params.row.id}`}
+              style={{ textDecoration: "none" }}
+            >
               <div className="viewButton">VIEW</div>
             </Link>
             <Link to="/users/edit" style={{ textDecoration: "none" }}>
