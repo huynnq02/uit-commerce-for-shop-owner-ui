@@ -11,7 +11,7 @@ const Table = ({ orders }) => {
       field: "Total",
       headerName: "Total Product Price",
       headerClassName: "addColor",
-      width: 150,
+      width: 200,
     },
     {
       field: "orderAddress",
@@ -23,13 +23,13 @@ const Table = ({ orders }) => {
       field: "orderDate",
       headerName: "Order Date",
       headerClassName: "addColor",
-      width: 150,
+      width: 200,
     },
     {
       field: "orderStatus",
       headerName: "Order Status",
       headerClassName: "addColor",
-      width: 150,
+      width: 200,
     },
     {
       field: "shippingTotal",
