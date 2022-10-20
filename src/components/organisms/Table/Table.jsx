@@ -17,7 +17,7 @@ const Table = ({ orders }) => {
       field: "orderAddress",
       headerName: "Order Address",
       headerClassName: "addColor",
-      width: 200,
+      width: 250,
     },
     {
       field: "orderDate",
