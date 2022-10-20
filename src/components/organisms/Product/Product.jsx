@@ -158,7 +158,6 @@ const Product = () => {
       (async () => {
         const newRef = doc(collection(db, "products"));
         await setDoc(newRef, {
-          id: newRef.id,
           active: active,
           category,
           color: colors,
@@ -166,7 +165,7 @@ const Product = () => {
           name: productInfor.name,
           price: Number(productInfor.price),
           quantities: Number(productInfor.quantities),
-          sales: Number(productInfor.sales),
+          sales: 0,
           sold: 0,
           sizes: sizes,
         })

@@ -1,11 +1,12 @@
-import "./List.scss"
-import Sidebar from "../../molecules/Sidebar/Sidebar"
-import Navbar from "../../molecules/Navbar/Navbar"
+import "./List.scss";
+import Sidebar from "../../molecules/Sidebar/Sidebar";
+import Navbar from "../../molecules/Navbar/Navbar";
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase/firebase-config";
 import DataTable from "../../organisms/DataTable/DataTable";
 
+//Info User Dashboard 
 const List = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
