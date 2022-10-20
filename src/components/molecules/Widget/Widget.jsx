@@ -4,22 +4,24 @@ import PersonOutlineOutlined from "@mui/icons-material/PersonOutlineOutlined";
 import AccountBalanceWalletOutLinedIcon from "@mui/icons-material/AccountBalanceOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined"; 
-
+import { Link } from "react-router-dom";
+// Info admin dashboard
 const Widget = ({ type }) => {
   let data;
-
-// Temporary
-const amount = 550;
-
-const diff = 20;
-
 
 switch (type) {
     case "user":
         data = {
             title: "USERS",
             isMoney: false,
-            link: "See all users",
+            link:             
+            <Link to="/users" style={{ textDecoration: "none" }}>
+            <li>
+              <span className="viewPage">See all users</span>
+            </li>
+            </Link>,
+            number:"12",
+            percentage:"30",
             icon: (
                 <PersonOutlineOutlined 
                 className="icon" 
@@ -35,7 +37,14 @@ switch (type) {
             data = {
                 title: "ORDERS",
                 isMoney: false,
-                link: "View all orders",
+                link:             
+                <Link to="/orders" style={{ textDecoration: "none" }}>
+                <li>
+                  <span className="viewPage">See all users</span>
+                </li>
+                </Link>,
+                number:"8",
+                percentage:"50",
                 icon: (
                     <ShoppingCartOutlinedIcon className="icon" 
                     style={{
@@ -50,7 +59,14 @@ switch (type) {
                 data = {
                     title: "EARNINGS",
                     isMoney: true,
-                    link: "View net earnings",
+                    link:           
+                      <Link to="/products" style={{ textDecoration: "none" }}>
+                    <li>
+                      <span className="viewPage">View all products</span>
+                    </li>
+                    </Link>,
+                    number:"220",
+                    percentage:"40",
                     icon: (
                         <MonetizationOnOutlined className="icon" 
                         style={{
@@ -65,7 +81,14 @@ switch (type) {
                     data = {
                         title: "BALANCE",
                         isMoney: true,
-                        link: "See details",
+                        link: 
+                        <Link to="/manage-categories" style={{ textDecoration: "none" }}>
+                        <li>
+                          <span className="viewPage">View all categories</span>
+                        </li>
+                        </Link>,
+                        number:"430",
+                        percentage:"30",
                         icon: (
                             <AccountBalanceWalletOutLinedIcon className="icon" 
                             style={{
@@ -84,13 +107,13 @@ switch (type) {
     <div className="widget">
       <div className="left">
             <span className="title">{data.title}</span>
-            <span className="counter">{amount}{data.isMoney && " Dollar"} </span>
+            <span className="counter">{data.number}{data.isMoney && " Dollar"} </span>
             <span className="link">{data.link}</span>
       </div>
       <div className="right">
             <div className="percentage positive">
               <KeyboardArrowUp />
-             {diff} %
+             {data.percentage} %
             </div>
         {data.icon}
       </div>
