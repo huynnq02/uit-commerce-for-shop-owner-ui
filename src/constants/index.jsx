@@ -12,6 +12,7 @@ export const CATEGORIES = [
   "Áo Thun Form Tiêu Chuẩn",
   "Quần Short Form Trên Gối",
 ];
+export const STATUS = ["active", "passive", "pending"];
 export const STR_SIZES = ["S", "M", "L", "XL", "XXL"];
 
 export const SIZES = [
