@@ -55,7 +55,7 @@ const DataTable = ({ users }) => {
             >
               <div className="viewButton">VIEW</div>
             </Link>
-            <Link to="/users/edit" style={{ textDecoration: "none" }}>
+            <Link to={`/users/edit/${params.row.id}`} style={{ textDecoration: "none" }}>
               <div className="editButton">EDIT</div>
             </Link>
           </div>
@@ -75,11 +75,7 @@ const DataTable = ({ users }) => {
       <div className="datatable">
         <div className="datatableTitle">
           User Dashboard
-          <Link to="/users/new" className="link">
-            Add New
-          </Link>
         </div>
-
         <DataGrid
           className="datagrid"
           rows={users}
