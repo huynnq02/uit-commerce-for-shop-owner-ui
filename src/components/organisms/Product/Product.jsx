@@ -49,7 +49,7 @@ const Product = () => {
     } else if (productInfor.quantities < 0 || !productInfor.quantities) {
       setErrorMess(`Quantities can not be empty!`);
       return false;
-    } else if (productInfor.sales < 0 || productInfor.sales === null) {
+    } else if (productInfor.sales < 0 || !productInfor.sales) {
       setErrorMess(`Sales can not be empty!`);
       return false;
     } else if (!descriptions) {

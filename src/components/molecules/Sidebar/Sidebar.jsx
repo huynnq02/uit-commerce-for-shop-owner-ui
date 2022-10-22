@@ -3,7 +3,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import StoreIcon from "@mui/icons-material/Store";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import CategoryIcon from "@mui/icons-material/Category";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
@@ -52,11 +52,12 @@ const Sidebar = () => {
               <span>Orders</span>
             </li>
           </Link>
-
-          <li>
-            <LocalShippingIcon className="icon" />
-            <span>Delivery</span>
-          </li>
+          <Link to="/manage-categories" style={{ textDecoration: "none" }}>
+            <li>
+              <CategoryIcon className="icon" />
+              <span>Categories</span>
+            </li>
+          </Link>
           <p className="title">USEFUL LINKS</p>
           <li>
             <AnalyticsIcon className="icon" />

@@ -39,7 +39,7 @@ const ProductDetail = () => {
   const [errorMess, setErrorMess] = useState("");
   const [openMess, setOpenMess] = useState(false);
   const [errorType, setErrorType] = useState("error");
-  const elementRef = useRef(null);
+  const eRef = useRef(null);
   let { productId } = useParams();
 
   useEffect(() => {
@@ -204,21 +204,21 @@ const ProductDetail = () => {
             name: product.name,
             price: Number(product.price),
             quantities: Number(product.quantities),
-            sales: product.sales,
+            sales: Number(product.sales),
             sizes: product.sizes,
           }).then(() => {
             setOpen(false);
             setErrorType("success");
             setErrorMess("Update success!");
             setOpenMess(true);
-            elementRef.current?.scrollIntoView({ behavior: "smooth" });
+            eRef.current?.scrollIntoView({ behavior: "smooth" });
           });
         });
       });
     } else {
+      eRef.current?.scrollIntoView({ behavior: "smooth" });
       setErrorType("error");
       setOpenMess(true);
-      elementRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -274,7 +274,7 @@ const ProductDetail = () => {
     <div className="detail-product">
       <CircularUnderLoad open={open} />
       <AlertMessage
-        ref={elementRef}
+        ref={eRef}
         message={errorMess}
         open={openMess}
         type={errorType}

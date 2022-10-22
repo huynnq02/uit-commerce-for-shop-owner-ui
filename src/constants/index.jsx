@@ -150,3 +150,36 @@ export const ACTION_COLUMN = [
     },
   },
 ];
+
+export const CATEGORIES_COLUMNS = [
+  { field: "id", headerClassName: "header-DG", headerName: "ID", width: 200 },
+  {
+    field: "name",
+    headerName: "Product Name",
+    headerClassName: "header-DG",
+    width: 250,
+    renderCell: (params) => {
+      return <div className="cellWithImg">{params.row.name}</div>;
+    },
+  },
+  {
+    field: "active",
+    headerName: "Status",
+    headerClassName: "header-DG",
+    width: 200,
+    renderCell: (params) => {
+      return (
+        <div
+          className={
+            params.row.active
+              ? `cellWithStatus active`
+              : `cellWithStatus passive`
+          }
+        >
+          {params.row.active ? "active" : "passive"}
+        </div>
+      );
+    },
+  },
+];
+
