@@ -1,0 +1,18 @@
+/**
+ * scss for button components
+ * file: Button.scss
+ */
+.customBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  padding: 10px 40px;
+  line-height: 150%;
+  font-weight: 400;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.07);
+    transition: all ease-in 0.2s;
+  }
+}

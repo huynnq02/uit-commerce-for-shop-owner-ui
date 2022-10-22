@@ -1,31 +1,20 @@
-import React, {useState, useEffect} from 'react';
-import ManageOrderHeader from '../../molecules/ManageOrderHeader/ManageOrderHeader';
-import TabManagerOrder from '../../molecules/TabManagerOrder/TabManagerOrder';
-import { collection, doc, getDoc, getDocs  } from "firebase/firestore"; 
-import {db} from '../../../firebase/firebase-config';
-
+import React from "react";
+import ManageOrderHeader from "../../molecules/ManageOrderHeader/ManageOrderHeader";
+import TabManagerOrder from "../../molecules/TabManagerOrder/TabManagerOrder";
+import Sidebar from "../../molecules/Sidebar/Sidebar";
+import Navbar from "../../molecules/Navbar/Navbar";
 const ManageOrder = () => {
-    // const [dataOrder, setDataOrder] = useState();
+  return (
+    <div className="list">
+      <Sidebar />
+      <div className="listContainer">
+        <Navbar />
+        <ManageOrderHeader></ManageOrderHeader>
+        <TabManagerOrder></TabManagerOrder>
+      </div>
+    </div>
+  );
+};
 
-
-    // const _GetCollection = async () => {
-    //     const testCollection = collection(db, 'listOrdered')
-    //     let docCollection = await getDocs(testCollection);
-    //     const docs = docCollection.docs.map((doc) => {
-    //         const data = doc.data();
-    //         return data;
-    //     })
-    //     setDataOrder(docs);
-    //     // console.log(dataOrder);    
-    // }
-    
-    
-    return (
-        <div className='manageOrder'>
-            <ManageOrderHeader></ManageOrderHeader>
-            <TabManagerOrder></TabManagerOrder>
-        </div>
-    );
-}
 
 export default ManageOrder;

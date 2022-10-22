@@ -7,29 +7,40 @@ import Single from "./components/pages/Single/Single";
 import Login from "./components/pages/Login/Login";
 import ManageOrder from "./components/pages/ManageOrder/ManageOrder";
 import OrderDetail from "./components/pages/OrderDetail/OrderDetail";
+import UserProvider from "./Context/UserContext/UserProvider";
+import AuthProvider from "./Context/AuthContext/AuthProvider";
+import PrivateRoute from "./PrivateRoute";
 import { productInputs, userInputs } from "./formSource";
+import AddProduct from "./components/pages/AddProduct/AddProduct";
+import DetailProduct from "./components/pages/DetailProduct/DetailProduct";
+import ListProduct from "./components/pages/ListProduct/ListProduct";
 function App() {
   return (
     <div className="App">
-      {/* <OrderDetail /> */}
-      <ManageOrder/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="login" element={<Login />} />
-        <Route path="users" >
-          <Route index element={<List/>}/>
-          <Route path=":userId" element={<Single />} />
-          <Route path="new" element={<New inputs={userInputs} title="Add New User" />} />
-        </Route>
-        <Route path="products">
-          <Route index element={<List/>}/>
-          <Route path=":productId" element={<Single />} />
-          <Route path="new" element={<New inputs={productInputs} title="Add New Product" />} />
-        </Route>
-        <Route path="manageOrder" element={<ManageOrder/>} />
-      </Routes>
+      <UserProvider>
+        <AuthProvider>
+          <Routes>
+            <Route path="login" element={<Login />} />
+            <Route path={"/"} element={<PrivateRoute />}>
+              <Route path="/" element={<Home />} />
+              <Route path="users">
+                <Route index element={<List />} />
+                <Route path=":userId" element={<Single />} />
+                <Route path="edit/:userId" element={<New />} />
+              </Route>
+              <Route path="products">
+                <Route index element={<ListProduct />} />
+                <Route path=":productId" element={<DetailProduct />} />
+                <Route path="new" element={<AddProduct />} />
+            </Route>
+              <Route path="orders">
+                <Route index element={<ManageOrder />} />
+              </Route>
+            </Route>
+          </Routes>
+        </AuthProvider>
+      </UserProvider>
     </div>
   );
 }
-
 export default App;

@@ -1,0 +1,65 @@
+/**
+ * scss for product's add list detail image components
+ * file: AddListImage.scss
+ */
+.add-list-image {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  margin-top: 10px;
+  .img-display {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .button {
+      width: 100%;
+      padding: 20px 10px;
+      border: 1px #2a254b dashed;
+      box-sizing: border-box;
+      label {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      input {
+        display: none;
+      }
+    }
+    .list-img {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      gap: 10px;
+      .round {
+        position: absolute;
+        box-sizing: border-box;
+        padding: 5px;
+        background-color: rgba(#000, 0.4);
+        color: white;
+        top: 0px;
+        right: 0px;
+        border-radius: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        cursor: pointer;
+      }
+      .image {
+        position: relative;
+        height: fit-content;
+        overflow: hidden;
+        margin-bottom: 0 !important;
+      }
+      img {
+        width: 112px;
+        height: 112px;
+        object-fit: contain;
+        overflow: hidden;
+        border: solid 1px grey;
+      }
+    }
+  }
+}
