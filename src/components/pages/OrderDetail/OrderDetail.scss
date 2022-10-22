@@ -1,0 +1,66 @@
+@include mobile {
+
+}
+
+@include tablet {
+
+    //Header Style
+    .orderDetailHeader {
+        margin-top: 3%;
+        display: flex;
+        flex-direction: row;
+        width: inherit;
+        max-width: 90%;
+        border-bottom: 1px;
+        border-color: $LightGreyColor;
+
+    }
+    .orderDetailHeader img {
+        width: 25px;
+        height: 25px;
+        flex: 0.8;
+        float: left;
+    }
+    .orderDetailHeader h3 {
+        font-size: 18px;
+        font-weight: 400;
+        color: $LightGreyColor;
+        float: left;
+        flex: 1;
+    }
+    .containerIdAndStatus {
+        display: flex;
+        flex-direction: row;
+        flex: 3;
+        float: right;
+    }
+    .containerIdAndStatus div {
+        height: inherit;
+        width: 2px;
+        background-color: $LightGreyColor;
+
+    }
+    .containerIdAndStatus h3:nth-child(1) {
+        font-size: 18px;
+        font-weight: 400;
+        color: $DarkPrimaryColor;
+
+    }
+    .containerIdAndStatus h3:nth-child(2) {
+        font-size: 18px;
+        font-weight: 400;
+        color: orangered;
+    }
+
+    //Render orderStatus Style
+    .containerPendingStatus {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+    }
+    .containerPendingStatus div {
+        display: flex;
+        flex-direction: row;
+        
+    }
+}

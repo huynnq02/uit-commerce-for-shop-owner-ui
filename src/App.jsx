@@ -6,10 +6,12 @@ import New from "./components/pages/New/New";
 import Single from "./components/pages/Single/Single";
 import Login from "./components/pages/Login/Login";
 import ManageOrder from "./components/pages/ManageOrder/ManageOrder";
+import OrderDetail from "./components/pages/OrderDetail/OrderDetail";
 import { productInputs, userInputs } from "./formSource";
 function App() {
   return (
     <div className="App">
+      {/* <OrderDetail /> */}
       <ManageOrder/>
       <Routes>
         <Route path="/" element={<Home />} />
