@@ -1,20 +1,20 @@
-/**
- * Manage order header component
- * file: ManageOrderHeader.jsx
- */
-import React, { useState } from "react";
-import notificationIcon from "../../../assets/icons/notificationIcon.png";
-import manIcon from "../../../assets/icons/manIcon.png";
-import downArrowIcon from "../../../assets/icons/downArrowIcon.png";
+import React, { useState, useEffect } from "react";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import notificationIcon from '../../../assets/icons/notificationIcon.png';
+import manIcon from '../../../assets/icons/manIcon.png';
+import downArrowIcon from '../../../assets/icons/downArrowIcon.png';
+import { collection, doc, getDocs } from "firebase/firestore";
+import { db } from "../../../firebase/firebase-config";
+
+
 
 const ManageOrderHeader = () => {
-  const [orderFounded, setOrderFounded] = useState(6);
-
   return (
     <div className="manageOrderHeader">
       <div className="__TextHeader">
         <h1>Orders</h1>
-        <h4>{orderFounded} orders found</h4>
       </div>
       <div className="__ButtonHeader">
         <button className="__ButtonNotification">

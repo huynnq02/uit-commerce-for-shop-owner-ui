@@ -6,6 +6,7 @@ import New from "./components/pages/New/New";
 import Single from "./components/pages/EditUser/EditUser";
 import Login from "./components/pages/Login/Login";
 import ManageOrder from "./components/pages/ManageOrder/ManageOrder";
+import OrderDetail from "./components/pages/OrderDetail/OrderDetail";
 import UserProvider from "./Context/UserContext/UserProvider";
 import { AuthProvider } from "./Context/AuthContext/AuthContext";
 import PrivateRoute from "./PrivateRoute";
