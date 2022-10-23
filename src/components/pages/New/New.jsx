@@ -18,6 +18,8 @@ import {
   collection,
   getDocs,
   updateDoc,
+  query,
+  where,
 } from "firebase/firestore";
 import { db } from "../../../firebase/firebase-config";
 import Button from "../../atoms/Button/Button";
@@ -55,7 +57,8 @@ const New = () => {
   useEffect(() => {
     (async () => {
       const colRef = collection(db, "listOrdered");
-      const snapshots = await getDocs(colRef);
+      const que = query(colRef,where("userId", "==", userId))
+      const snapshots = await getDocs(que);
       const docs = snapshots.docs.map((doc) => {
         const data = doc.data();
         data.id = doc.id;

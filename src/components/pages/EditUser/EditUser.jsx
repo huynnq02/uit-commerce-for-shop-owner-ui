@@ -9,7 +9,14 @@ import Chart from "../../atoms/Chart/Chart";
 import List from "../../organisms/Table/Table";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../../../firebase/firebase-config";
 
 const USER = {
@@ -44,7 +51,8 @@ const Single = () => {
   useEffect(() => {
     (async () => {
       const colRef = collection(db, "listOrdered");
-      const snapshots = await getDocs(colRef);
+      const que = query(colRef, where("userId", "==", userId));
+      const snapshots = await getDocs(que);
       const docs = snapshots.docs.map((doc) => {
         const data = doc.data();
         data.id = doc.id;
