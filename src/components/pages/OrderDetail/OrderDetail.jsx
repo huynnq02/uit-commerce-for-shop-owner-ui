@@ -1,6 +1,5 @@
-import React from 'react';
-
-
+import React, {useEffect, useState} from 'react';
+import ProductComponent from '../../molecules/ProductComponent/ProductComponent';
 
 // import icons and images from assets
 import greenIcon from '../../../assets/icons/greenDotIcon.png';
@@ -8,84 +7,65 @@ import greyIcon from '../../../assets/icons/greyDotIcon.png';
 import redIcon from '../../../assets/icons/redDotIcon.png';
 
 
-const OrderDetailHeader = ({props}) => {
-    <div className='orderDetailHeader'>
-        <img></img>
-        <h3>Go back</h3>
-        <div className='containerIdAndStatus'>
-            <h3>Order ID: 1213231231242</h3>
-            <div></div>
-            <h3>Pending</h3>
+const OrderDetailHeader = (props) => {
+    return(
+        <div className='orderDetailHeader'>
+            <div>
+                <img src={redIcon}></img>
+                <h3>Go back</h3>
+            </div>
+            <div className='containerIdAndStatus'>
+                <h3>Order ID: 1213231231242</h3>
+                <h3>Pending</h3>
+            </div>
         </div>
-    </div>
+    )
 }
 
-const orderDetailStatusView = ({props}) => {
-    if (props.orderStatus === 'Pending') {
-        return (
-            <div className='containerPendingStatus'>
-                <div>
-                    <p>Pending</p>
-                    <img src={redIcon} alt='Pending Icon'/>
-                </div>
-                <p>Your Order is in process</p>
-            </div>
-        )
+const DataDummy = [
+    {
+        name: '1',
+        image: redIcon,
+        productQuantities: 10,
+        price: 10000,
+    },
+    {
+        name: '2',
+        image: redIcon,
+        productQuantities: 2,
+        price: 10000,
+    },
+    {
+        name: '3',
+        image: redIcon,
+        productQuantities: 4,
+        price: 10000,
     }
-    if (props.orderStatus === 'Dispatch') {
-        return (
-            <div className='containerDispatchStatus'>
-                <div className='containerPendingStatus'>
-                    <div>
-                        <p>Pending</p>
-                        <img src={redIcon} alt='Pending Icon'/>
-                    </div>
-                    <p>Your Order is in process</p>
-                </div>
-                <div>
-                    <img src={greenIcon} alt='Dispatch Icon'/>
-                    <p>Your Order is delivery</p>
-                </div>
-            </div>
-        )
-    }
-    if (props.orderStatus === 'Completed') {
-        return (
-            <div className='containerCompletedStatus'>
-                <div className='containerDispatchStatus'>
-                    <div className='containerPendingStatus'>
-                        <div>
-                            <p>Pending</p>
-                            <img src={redIcon} alt='Pending Icon'/>
-                        </div>
-                    <p>Your Order is in process</p>
-                    </div>
-                    <div>
-                        <img src={greenIcon} alt='Dispatch Icon'/>
-                        <p>Your Order is delivered</p>
-                    </div>
-                </div>
-                <div>
-                    <img src={greyIcon} alt='Completed Icon'/>
-                    <p>Your order has been successfully delivered</p>
-                </div>
-            </div>
-        )
-    }
-    // orderStatus === 'Cancelled'
-    else {
-        return (
-            <div className='containerCancelledStatus'>
+]
 
-            </div>
-        )
-    }
-}
-
-const OrderDetail = ({props}) => {
+const OrderDetail = (props) => {
+    props = DataDummy;
+    console.log(props);
+    const [dataOrder, setDataOrder] = useState(props);
     return (
         <div id='orderDetail' className='orderDetail'>
-            
+            <OrderDetailHeader></OrderDetailHeader>
+            {dataOrder === undefined ? (
+                <p>No data</p>
+            ) : (
+                dataOrder.map((e, i) => {
+                    return(
+                        <div className='containerOrderProducts'>
+                            <img src={e.image}></img>
+                            <div className='containerOrderProducts__Text'>
+                                <h3>{e.name}</h3>
+                                <p>{e.productQuantities}</p>
+                            </div>
+                            <span>{e.price}</span>
+                        </div>
+                    )
+                })
+            )}
         </div>
     );
 }
