@@ -3,7 +3,6 @@
  * file: Login.jsx
  */
 import React, { useContext,useState } from "react";
-import { UserContext } from "../../../Context/UserContext/UserContext";
 import { useAuth } from "../../../Context/AuthContext/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Box, styled } from "@mui/system";
@@ -15,6 +14,9 @@ import * as Yup from "yup";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase/firebase-config";
 import { toast } from "react-toastify";
+import InputUser from "../../molecules/Input/InputUser";
+import IconEyeOpen from "../../../assets/icons/IconEyes/IconEyeOpen";
+import IconEyeClose from "../../../assets/icons/IconEyes/IconEyeClose";
 //Style CSS
 const FlexBox = styled(Box)(() => ({
   display: "flex",
@@ -73,7 +75,6 @@ const validationSchema = Yup.object().shape({
 
 const Login = () => {
   let history = useNavigate();
-  const { setIsLogin } = useContext(UserContext);
   const { setAdminInfo } = useAuth();
   const [admins, setAdmins] = useState([]);
   //function check admin status
@@ -102,7 +103,11 @@ const Login = () => {
       toast.error("Your email or password is incorrect");
     }
   };
-
+  //Bias redux
+  const [togglePassword, setTogglePassword] = useState(false);
+  const handleTogglePassword = () => {
+    setTogglePassword(!togglePassword);
+  };  
   return (
     <JWTRoot>
       <Card className="card">
@@ -126,41 +131,40 @@ const Login = () => {
                 >
                   {({
                     values,
-                    errors,
-                    touched,
                     handleChange,
                     handleBlur,
                     handleSubmit,
                   }) => (
                     <form onSubmit={handleSubmit}>
-                      <TextField
-                        fullWidth
-                        size="small"
+                      <InputUser
                         type="email"
                         name="email"
+                        id="email"
                         label="Email"
+                        placeholder="Enter your gmail..."
                         variant="outlined"
                         onBlur={handleBlur}
                         value={values.email}
                         onChange={handleChange}
-                        helperText={touched.email && errors.email}
-                        error={Boolean(errors.email && touched.email)}
-                        sx={{ mb: 3 }}
-                      />
-
-                      <TextField
-                        fullWidth
-                        size="small"
+                      ></InputUser>
+                      <InputUser
+                        id="password"
                         name="password"
-                        type="password"
                         label="Password"
                         variant="outlined"
                         onBlur={handleBlur}
                         value={values.password}
                         onChange={handleChange}
-                        helperText={touched.password && errors.password}
-                        error={Boolean(errors.password && touched.password)}
-                        sx={{ mb: 1.5 }}
+                        type={togglePassword ? "text" : "password"}
+                        icon={
+                          togglePassword ? (
+                            <IconEyeOpen onClick={handleTogglePassword}></IconEyeOpen>
+                          ) : (
+                            <IconEyeClose
+                              onClick={handleTogglePassword}
+                            ></IconEyeClose>
+                          )
+                        }
                       />
 
                       <ThemeProvider theme={theme}>
@@ -168,7 +172,7 @@ const Login = () => {
                           type="submit"
                           color="primary"
                           variant="contained"
-                          sx={{ my: 1, marginLeft: 30, width: 80 }}
+                          sx={{ my: 1, marginLeft: 30, width: 95,height:35 }}
                         >
                           Login
                         </LoadingButton>
