@@ -4,9 +4,16 @@
  */
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { UserContext } from "./Context/UserContext/UserContext";
 import { Outlet } from "react-router-dom/dist";
+import { useAuth } from "./Context/AuthContext/AuthContext";
 export default function PrivateRoute() {
-  let { isLogin } = useContext(UserContext);
-  return isLogin ? <Outlet /> : <Navigate to="/login" />;
+  const {adminInfo}= useAuth();
+  
+  if (adminInfo) {
+    // admin is signed in
+    return <Outlet />;
+  } else {
+    // No user is signed in.
+    return <Navigate to="/login" />;
+  }
 }
