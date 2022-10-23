@@ -5,12 +5,27 @@ import "./scss/index.scss";
 import { ThemeConfig } from "./theme/ThemeConfig";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+import {ToastContainer} from 'react-toastify';
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={ThemeConfig}>
       <CssBaseline />
       <BrowserRouter>
         <App />
+        <ToastContainer
+            position='top-right'
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme='colored'
+          
+        />
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>
