@@ -13,6 +13,7 @@ import { productInputs, userInputs } from "./formSource";
 import AddProduct from "./components/pages/AddProduct/AddProduct";
 import DetailProduct from "./components/pages/DetailProduct/DetailProduct";
 import ListProduct from "./components/pages/ListProduct/ListProduct";
+import ManageCategories from "./components/pages/ManageCategories/ManageCategories";
 function App() {
   return (
     <div className="App">
@@ -32,6 +33,7 @@ function App() {
                 <Route path=":productId" element={<DetailProduct />} />
                 <Route path="new" element={<AddProduct />} />
               </Route>
+              <Route path="manage-categories" element={<ManageCategories />} />
               <Route path="orders">
                 <Route index element={<ManageOrder />} />
               </Route>
