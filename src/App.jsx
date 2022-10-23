@@ -1,16 +1,15 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.scss";
 import Home from "./components/pages/Home/Home";
-import List from "./components/pages/List/List";
+import List from "./components/pages/ListUsers/List";
 import New from "./components/pages/New/New";
-import Single from "./components/pages/Single/Single";
+import Single from "./components/pages/EditUser/EditUser";
 import Login from "./components/pages/Login/Login";
 import ManageOrder from "./components/pages/ManageOrder/ManageOrder";
 import OrderDetail from "./components/pages/OrderDetail/OrderDetail";
 import UserProvider from "./Context/UserContext/UserProvider";
 import { AuthProvider } from "./Context/AuthContext/AuthContext";
 import PrivateRoute from "./PrivateRoute";
-import { productInputs, userInputs } from "./formSource";
 import AddProduct from "./components/pages/AddProduct/AddProduct";
 import DetailProduct from "./components/pages/DetailProduct/DetailProduct";
 import ListProduct from "./components/pages/ListProduct/ListProduct";

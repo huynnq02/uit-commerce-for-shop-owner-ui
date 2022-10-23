@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { doc, getDoc, collection, updateDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../firebase/firebase-config";
-import { DATA_INPUT_PRODUCT } from "../../../constants";
+import { DATA_INPUT_PRODUCT, PRODUCT_INITITAL_VALUE } from "../../../constants";
 import AddListImage from "../../atoms/AddListImage/AddListImage";
 import AddColor from "../../atoms/AddColor/AddColor";
 import AddImage from "../../atoms/AddImage/AddImage";
@@ -19,22 +19,9 @@ import CircularUnderLoad from "../../atoms/CircularLoading/CircularLoading";
 import Button from "../../atoms/Button/Button";
 import AlertMessage from "../../atoms/Alert/Alert";
 import "./ProductDetail.scss";
-const PRODUCT = {
-  active: true,
-  category: "",
-  color: [],
-  name: "",
-  description: "",
-  detailImages: [],
-  image: "",
-  price: 0,
-  quantities: 0,
-  sales: 0,
-  sizes: [],
-  sold: 0,
-};
+
 const ProductDetail = () => {
-  const [product, setProduct] = useState(PRODUCT);
+  const [product, setProduct] = useState(PRODUCT_INITITAL_VALUE);
   const [open, setOpen] = useState(false);
   const [errorMess, setErrorMess] = useState("");
   const [openMess, setOpenMess] = useState(false);

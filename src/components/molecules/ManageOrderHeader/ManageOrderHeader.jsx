@@ -17,20 +17,17 @@ const ManageOrderHeader = () => {
         <h1>Orders</h1>
       </div>
       <div className="__ButtonHeader">
-        <button className="__ButtonNotification"
-        >
-          <img src={notificationIcon} alt="Notification Icon"/>
+        <button className="__ButtonNotification">
+          <img src={notificationIcon} alt="Notification Icon" />
         </button>
         <button className="__ButtonProfileSetting">
-          <img src={manIcon} alt="Profile Icon"/>
+          <img src={manIcon} alt="Profile Icon" />
         </button>
         <button className="__ButtonArrowDropDown">
-          <img src={downArrowIcon} alt="More Info Icon"/>
+          <img src={downArrowIcon} alt="More Info Icon" />
         </button>
       </div>
-
     </div>
-    
   );
 };
 

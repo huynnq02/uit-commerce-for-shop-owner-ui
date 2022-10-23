@@ -1,3 +1,7 @@
+/**
+ * Auth Context
+ * file: AuthContext.jsx
+ */
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";

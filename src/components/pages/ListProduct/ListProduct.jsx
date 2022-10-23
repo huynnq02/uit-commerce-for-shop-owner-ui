@@ -1,10 +1,14 @@
+/**
+ * List Product pages
+ * file: ListProduct.jsx
+ */
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase/firebase-config";
 import Sidebar from "../../molecules/Sidebar/Sidebar";
 import Navbar from "../../molecules/Navbar/Navbar";
 import DataGridView from "../../molecules/DataGridView/DataGridView";
-import "../List/List.scss";
+import "../ListUsers/List.scss";
 const ListProduct = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {

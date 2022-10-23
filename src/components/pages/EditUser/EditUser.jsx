@@ -1,16 +1,17 @@
-import "./Single.scss";
+/**
+ * Edit Detail Users
+ * file: Single.jsx
+ */
+import "./EditUser.scss";
 import Sidebar from "../../molecules/Sidebar/Sidebar";
 import Navbar from "../../molecules/Navbar/Navbar";
 import Chart from "../../atoms/Chart/Chart";
 import List from "../../organisms/Table/Table";
 import { useParams } from "react-router-dom";
-import React, { useEffect, useState} from "react";
-import { doc, getDoc,collection,getDocs } from "firebase/firestore";
-import { db} from "../../../firebase/firebase-config";
-/**
- * View Detail Users
- *
- */
+import React, { useEffect, useState } from "react";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { db } from "../../../firebase/firebase-config";
+
 const USER = {
   address: "",
   fullname: "",
@@ -93,7 +94,7 @@ const Single = () => {
         </div>
         <div className="bottom">
           <h1 className="title">Last Transactions</h1>
-          <List orders={orders}/>
+          <List orders={orders} />
         </div>
       </div>
     </div>
