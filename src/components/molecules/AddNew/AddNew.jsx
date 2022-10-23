@@ -1,3 +1,7 @@
+/**
+ * Add component
+ * file: AddNew.jsx
+ */
 import "./AddNew.scss";
 import Sidebar from "../Sidebar/Sidebar";
 import Navbar from "../Navbar/Navbar";

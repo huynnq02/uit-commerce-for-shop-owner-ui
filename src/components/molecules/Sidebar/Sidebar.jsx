@@ -1,3 +1,7 @@
+/**
+ * Sidebar component
+ * file: Sidebar.jsx
+ */
 import "./Sidebar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
@@ -12,14 +16,18 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import InputOutlinedIcon from "@mui/icons-material/InputOutlined";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebase/firebase-config";
 const Sidebar = () => {
+  /**
+   * handle sign out
+   * @private
+   * @params none
+   */
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        // Sign-out successful.
+        console.log("Sign out successfully");
       })
       .catch((error) => {});
   };

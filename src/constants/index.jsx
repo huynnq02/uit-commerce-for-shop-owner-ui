@@ -184,3 +184,71 @@ export const CATEGORIES_COLUMNS = [
   },
 ];
 
+export const DATA_CHART = [
+  { name: "January", Total: 1100},
+  { name: "February", Total: 2100},
+  { name: "March", Total: 820},
+  { name: "April", Total: 1620},
+  { name: "May", Total: 820},
+  { name: "June", Total: 1720},
+];
+
+export const PRODUCT_INITITAL_VALUE = {
+  active: true,
+  category: "",
+  color: [],
+  name: "",
+  description: "",
+  detailImages: [],
+  image: "",
+  price: 0,
+  quantities: 0,
+  sales: 0,
+  sizes: [],
+  sold: 0,
+};
+
+export const TRANSACTIONS_COLUMN = [
+  {
+    field: "id",
+    headerName: "Order ID",
+    headerClassName: "addColor",
+    width: 120,
+  },
+  {
+    field: "userId",
+    headerName: "User ID",
+    headerClassName: "addColor",
+    width: 120,
+  },
+  {
+    field: "Total",
+    headerName: "Total Product Price",
+    headerClassName: "addColor",
+    width: 200,
+  },
+  {
+    field: "orderAddress",
+    headerName: "Order Address",
+    headerClassName: "addColor",
+    width: 250,
+  },
+  {
+    field: "orderDate",
+    headerName: "Order Date",
+    headerClassName: "addColor",
+    width: 200,
+  },
+  {
+    field: "orderStatus",
+    headerName: "Order Status",
+    headerClassName: "addColor",
+    width: 200,
+  },
+  {
+    field: "shippingTotal",
+    headerName: "Shipping Price",
+    headerClassName: "addColor",
+    width: 150,
+  },
+];

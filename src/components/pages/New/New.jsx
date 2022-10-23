@@ -1,3 +1,7 @@
+/**
+ * View Detail Users page
+ * file: New.jsx
+ */
 import "./New.scss";
 import Sidebar from "../../molecules/Sidebar/Sidebar";
 import Navbar from "../../molecules/Navbar/Navbar";
@@ -17,10 +21,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../firebase/firebase-config";
 import Button from "../../atoms/Button/Button";
-/**
- * View Detail Users
- *
- */
+
 const USER = {
   address: "",
   fullname: "",

@@ -1,3 +1,7 @@
+/**
+ * Dashboard page
+ * file: Home.jsx
+ */
 import Navbar from "../../molecules/Navbar/Navbar";
 import Sidebar from "../../molecules/Sidebar/Sidebar";
 import Widget from "../../molecules/Widget/Widget";

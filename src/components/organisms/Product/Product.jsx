@@ -158,6 +158,7 @@ const Product = () => {
       (async () => {
         const newRef = doc(collection(db, "products"));
         await setDoc(newRef, {
+          id: newRef.id,
           active: active,
           category,
           color: colors,
