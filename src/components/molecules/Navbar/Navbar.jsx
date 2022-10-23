@@ -1,3 +1,7 @@
+/**
+ * Navbar component
+ * file: Navbar.jsx
+ */
 import "./Navbar.scss";
 import FullScreenExitOutlinedIcon from "@mui/icons-material/FullscreenExitOutlined";
 import NotificationsNoneOutlined from "@mui/icons-material/NotificationsNoneOutlined";

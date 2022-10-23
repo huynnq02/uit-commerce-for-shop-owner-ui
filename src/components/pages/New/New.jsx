@@ -1,3 +1,7 @@
+/**
+ * View Detail Users page
+ * file: New.jsx
+ */
 import "./New.scss";
 import Sidebar from "../../molecules/Sidebar/Sidebar";
 import Navbar from "../../molecules/Navbar/Navbar";
@@ -14,13 +18,12 @@ import {
   collection,
   getDocs,
   updateDoc,
+  query,
+  where,
 } from "firebase/firestore";
 import { db } from "../../../firebase/firebase-config";
 import Button from "../../atoms/Button/Button";
-/**
- * View Detail Users
- *
- */
+
 const USER = {
   address: "",
   fullname: "",
@@ -54,7 +57,8 @@ const New = () => {
   useEffect(() => {
     (async () => {
       const colRef = collection(db, "listOrdered");
-      const snapshots = await getDocs(colRef);
+      const que = query(colRef,where("userId", "==", userId))
+      const snapshots = await getDocs(que);
       const docs = snapshots.docs.map((doc) => {
         const data = doc.data();
         data.id = doc.id;

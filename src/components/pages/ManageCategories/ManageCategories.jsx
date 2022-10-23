@@ -1,37 +1,47 @@
 /**
- * List Product pages
- * file: ListProduct.jsx
+ * Manage Categories Pages
+ * file: ManageCategories.jsx
  */
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase/firebase-config";
 import Sidebar from "../../molecules/Sidebar/Sidebar";
 import Navbar from "../../molecules/Navbar/Navbar";
-import DataGridView from "../../molecules/DataGridView/DataGridView";
-import "../ListUsers/List.scss";
-const ListProduct = () => {
-  const [products, setProducts] = useState([]);
+import Categories from "../../organisms/Categories/Categories";
+
+const ManageCategories = () => {
+  const [categories, setCategory] = useState([]);
+  const [update, setUpdate] = useState(false);
   useEffect(() => {
     (async () => {
-      const colRef = collection(db, "products");
+      const colRef = collection(db, "categories");
       const snapshots = await getDocs(colRef);
       const docs = snapshots.docs.map((doc) => {
         const data = doc.data();
-        data.id = doc.id;
         return data;
       });
-      setProducts(docs);
+      setCategory(docs);
     })();
-  }, []);
+  }, [update]);
+
+  /**
+   * handle update table data
+   * @private
+   * @params none
+   */
+  const _handleSetUpdate = () => {
+    setUpdate((prev) => !prev);
+  };
+
   return (
     <div className="list">
       <Sidebar />
       <div className="listContainer">
         <Navbar />
-        <DataGridView products={products} />
+        <Categories categories={categories} onUpdate={_handleSetUpdate} />
       </div>
     </div>
   );
 };
 
-export default ListProduct;
+export default ManageCategories;
