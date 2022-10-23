@@ -2,7 +2,7 @@
  * Login pages
  * file: Login.jsx
  */
-import React, { useContext } from "react";
+import React, { useContext,useState } from "react";
 import { UserContext } from "../../../Context/UserContext/UserContext";
 import { useAuth } from "../../../Context/AuthContext/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase/firebase-config";
-
+import { toast } from "react-toastify";
 //Style CSS
 const FlexBox = styled(Box)(() => ({
   display: "flex",
@@ -75,13 +75,31 @@ const Login = () => {
   let history = useNavigate();
   const { setIsLogin } = useContext(UserContext);
   const { setAdminInfo } = useAuth();
+  const [admins, setAdmins] = useState([]);
+  //function check admin status
+  function statusUser(email, admins) {
+    let checkAdmin = true;
+    admins.forEach((admin) => {
+      console.log(admin);
+      if (admin.email === email) {
+        checkAdmin = false;
+        return;
+      }
+    });
+    return checkAdmin;
+  }
+
   const handleLogin = async (values) => {
     try {
+      if (statusUser(values.email, admins) === false) {
+        toast.error("Admin is not found");
+        return;
+      }
       await signInWithEmailAndPassword(auth, values.email, values.password);
-      setIsLogin(true);
-      history("/", { replace: true });
-    } catch (error) {
-      console.log(error);
+      history("/");
+    } catch (errors) {
+      console.log(errors);
+      toast.error("Your email or password is incorrect");
     }
   };
 
