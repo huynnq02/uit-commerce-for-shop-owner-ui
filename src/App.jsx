@@ -7,7 +7,7 @@ import Single from "./components/pages/Single/Single";
 import Login from "./components/pages/Login/Login";
 import ManageOrder from "./components/pages/ManageOrder/ManageOrder";
 import UserProvider from "./Context/UserContext/UserProvider";
-import AuthProvider from "./Context/AuthContext/AuthProvider";
+import { AuthProvider } from "./Context/AuthContext/AuthContext";
 import PrivateRoute from "./PrivateRoute";
 import { productInputs, userInputs } from "./formSource";
 import AddProduct from "./components/pages/AddProduct/AddProduct";
@@ -26,14 +26,7 @@ function App() {
               <Route path="users">
                 <Route index element={<List />} />
                 <Route path=":userId" element={<Single />} />
-                <Route
-                  path="new"
-                  element={<New inputs={userInputs} title="Add New User" />}
-                />
-                <Route
-                  path="edit"
-                  element={<New inputs={userInputs} title="Edit User" />}
-                />
+                <Route path="edit/:userId" element={<New />} />
               </Route>
               <Route path="products">
                 <Route index element={<ListProduct />} />

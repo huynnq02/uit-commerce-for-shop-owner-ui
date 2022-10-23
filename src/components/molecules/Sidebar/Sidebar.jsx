@@ -13,8 +13,16 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import InputOutlinedIcon from "@mui/icons-material/InputOutlined";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-
+import { signOut } from "firebase/auth";
+import { auth } from "../../../firebase/firebase-config";
 const Sidebar = () => {
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {});
+  };
   return (
     <div className="sidebar">
       <div className="top">
@@ -88,7 +96,7 @@ const Sidebar = () => {
           <Link to="/login" style={{ textDecoration: "none" }}>
             <li>
               <InputOutlinedIcon className="icon" />
-              <span>Logout</span>
+              <span onClick={handleSignOut}>Logout</span>
             </li>
           </Link>
         </ul>

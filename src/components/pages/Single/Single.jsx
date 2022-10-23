@@ -4,16 +4,14 @@ import Navbar from "../../molecules/Navbar/Navbar";
 import Chart from "../../atoms/Chart/Chart";
 import List from "../../organisms/Table/Table";
 import { useParams } from "react-router-dom";
-import React, { useEffect, useState, useRef } from "react";
-import { doc, getDoc, collection, updateDoc } from "firebase/firestore";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../../../firebase/firebase-config";
+import React, { useEffect, useState} from "react";
+import { doc, getDoc,collection,getDocs } from "firebase/firestore";
+import { db} from "../../../firebase/firebase-config";
 /**
  * View Detail Users
  *
  */
 const USER = {
-  status: true,
   address: "",
   fullname: "",
   password: "",
@@ -41,6 +39,19 @@ const Single = () => {
       }
     })();
   }, [userId]);
+  const [orders, setOrders] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const colRef = collection(db, "listOrdered");
+      const snapshots = await getDocs(colRef);
+      const docs = snapshots.docs.map((doc) => {
+        const data = doc.data();
+        data.id = doc.id;
+        return data;
+      });
+      setOrders(docs);
+    })();
+  }, []);
   return (
     <div className="single">
       <Sidebar />
@@ -82,7 +93,7 @@ const Single = () => {
         </div>
         <div className="bottom">
           <h1 className="title">Last Transactions</h1>
-          <List />
+          <List orders={orders}/>
         </div>
       </div>
     </div>
