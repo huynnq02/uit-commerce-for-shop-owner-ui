@@ -7,7 +7,7 @@ import Single from "./components/pages/EditUser/EditUser";
 import Login from "./components/pages/Login/Login";
 import ManageOrder from "./components/pages/ManageOrder/ManageOrder";
 import OrderDetail from "./components/pages/OrderDetail/OrderDetail";
-import UserProvider from "./Context/UserContext/UserProvider";
+
 import { AuthProvider } from "./Context/AuthContext/AuthContext";
 import PrivateRoute from "./PrivateRoute";
 import AddProduct from "./components/pages/AddProduct/AddProduct";
@@ -17,7 +17,6 @@ import ManageCategories from "./components/pages/ManageCategories/ManageCategori
 function App() {
   return (
     <div className="App">
-      <UserProvider>
         <AuthProvider>
           <Routes>
             <Route path="login" element={<Login />} />
@@ -40,7 +39,6 @@ function App() {
             </Route>
           </Routes>
         </AuthProvider>
-      </UserProvider>
     </div>
   );
 }
