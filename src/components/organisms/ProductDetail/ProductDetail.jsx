@@ -102,7 +102,7 @@ const ProductDetail = () => {
    * @params event
    */
   const _handleChangeDescriptions = (e) => {
-    setProduct({ ...product, ["description"]: e.target.value });
+    setProduct({ ...product, ["description"]: e });
   };
 
   /**
