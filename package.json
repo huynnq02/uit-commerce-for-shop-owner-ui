@@ -27,6 +27,7 @@
         "react-dom": "^18.2.0",
         "react-full-screen": "^1.1.1",
         "react-hook-use-state": "^1.1.0",
+        "react-quill": "^2.0.0",
         "react-router-dom": "^6.4.1",
         "react-toastify": "^9.0.8",
         "recharts": "^2.1.14",

@@ -90,8 +90,8 @@ const Product = () => {
    * @private
    * @params event
    */
-  const _handleChangeDescriptions = (e) => {
-    setDescriptions(e.target.value);
+  const _handleChangeDescriptions = (value) => {
+    setDescriptions(value);
   };
 
   /**
