@@ -46,7 +46,7 @@ const Widget = ({ type }) => {
         link: (
           <Link to="/orders" style={{ textDecoration: "none" }}>
             <li>
-              <span className="viewPage">See all users</span>
+              <span className="viewPage">See all orders</span>
             </li>
           </Link>
         ),
