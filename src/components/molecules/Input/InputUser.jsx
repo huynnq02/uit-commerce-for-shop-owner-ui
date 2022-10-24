@@ -1,8 +1,12 @@
+/*
+ * The input component using in authentication
+ * file: InputUser.scss
+ */
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { useField } from "formik";
 import Label from "../../atoms/Label/Label";
 import "./InputUser.scss";
+
 const InputUser = ({ type = "text", label = "", icon, ...props }) => {
   const [field, meta] = useField(props);
 

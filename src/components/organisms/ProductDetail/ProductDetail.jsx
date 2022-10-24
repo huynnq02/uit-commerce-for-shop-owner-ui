@@ -199,6 +199,7 @@ const ProductDetail = () => {
             setErrorMess("Update success!");
             setOpenMess(true);
             eRef.current?.scrollIntoView({ behavior: "smooth" });
+            window.scrollTo(0, 0);
           });
         });
       });
@@ -206,6 +207,7 @@ const ProductDetail = () => {
       eRef.current?.scrollIntoView({ behavior: "smooth" });
       setErrorType("error");
       setOpenMess(true);
+      window.scrollTo(0, 0);
     }
   };
 

@@ -1,6 +1,6 @@
 /**
  * Edit Detail Users
- * file: Single.jsx
+ * file: EditUser.jsx
  */
 import "./EditUser.scss";
 import Sidebar from "../../molecules/Sidebar/Sidebar";
@@ -30,8 +30,9 @@ const USER = {
 };
 const Single = () => {
   const [user, setUser] = useState(USER);
-
+  const [orders, setOrders] = useState([]);
   let { userId } = useParams();
+
   useEffect(() => {
     (async () => {
       if (!userId) return;
@@ -47,7 +48,7 @@ const Single = () => {
       }
     })();
   }, [userId]);
-  const [orders, setOrders] = useState([]);
+
   useEffect(() => {
     (async () => {
       const colRef = collection(db, "listOrdered");
@@ -61,6 +62,7 @@ const Single = () => {
       setOrders(docs);
     })();
   }, []);
+
   return (
     <div className="single">
       <Sidebar />

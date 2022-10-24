@@ -7,7 +7,6 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase/firebase-config";
 import Table from "../../organisms/Table/Table";
 
-// Detail Transaction of admin dashboard and view info user
 const Transaction = () => {
   const [orders, setOrders] = useState([]);
   useEffect(() => {

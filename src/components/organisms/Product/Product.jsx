@@ -179,6 +179,7 @@ const Product = () => {
                 setErrorMess("Adding success!");
                 setOpenMess(true);
                 elementRef.current?.scrollIntoView({ behavior: "smooth" });
+                window.scrollTo(0, 0);
               });
             });
           })
@@ -190,6 +191,7 @@ const Product = () => {
       setErrorType("error");
       setOpenMess(true);
       elementRef.current?.scrollIntoView({ behavior: "smooth" });
+      window.scrollTo(0, 0);
     }
   };
 

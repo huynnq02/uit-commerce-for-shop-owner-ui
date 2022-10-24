@@ -2,7 +2,7 @@
  * Login pages
  * file: Login.jsx
  */
-import React, { useContext,useState } from "react";
+import React, { useContext, useState } from "react";
 import { useAuth } from "../../../Context/AuthContext/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Box, styled } from "@mui/system";
@@ -103,11 +103,10 @@ const Login = () => {
       toast.error("Your email or password is incorrect");
     }
   };
-  //Bias redux
   const [togglePassword, setTogglePassword] = useState(false);
   const handleTogglePassword = () => {
     setTogglePassword(!togglePassword);
-  };  
+  };
   return (
     <JWTRoot>
       <Card className="card">
@@ -129,12 +128,7 @@ const Login = () => {
                   initialValues={initialValues}
                   validationSchema={validationSchema}
                 >
-                  {({
-                    values,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                  }) => (
+                  {({ values, handleChange, handleBlur, handleSubmit }) => (
                     <form onSubmit={handleSubmit}>
                       <InputUser
                         type="email"
@@ -158,7 +152,9 @@ const Login = () => {
                         type={togglePassword ? "text" : "password"}
                         icon={
                           togglePassword ? (
-                            <IconEyeOpen onClick={handleTogglePassword}></IconEyeOpen>
+                            <IconEyeOpen
+                              onClick={handleTogglePassword}
+                            ></IconEyeOpen>
                           ) : (
                             <IconEyeClose
                               onClick={handleTogglePassword}
@@ -172,7 +168,7 @@ const Login = () => {
                           type="submit"
                           color="primary"
                           variant="contained"
-                          sx={{ my: 1, marginLeft: 30, width: 95,height:35 }}
+                          sx={{ my: 1, marginLeft: 30, width: 95, height: 35 }}
                         >
                           Login
                         </LoadingButton>

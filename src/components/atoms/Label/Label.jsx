@@ -1,5 +1,8 @@
+/**
+ * Label component
+ * file: Label.jsx
+ */
 import React from "react";
-import PropTypes from "prop-types";
 
 const Label = ({ children, htmlFor = "", ...props }) => {
   return (
@@ -8,7 +11,5 @@ const Label = ({ children, htmlFor = "", ...props }) => {
     </label>
   );
 };
-
-Label.propTypes = {};
 
 export default Label;

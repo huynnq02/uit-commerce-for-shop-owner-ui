@@ -12,6 +12,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import InputOutlinedIcon from "@mui/icons-material/InputOutlined";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebase/firebase-config";
+
 //Style
 const UserMenu = styled(Box)(() => ({
   display: "flex",
@@ -40,9 +41,7 @@ const StyledItem = styled(MenuItem)(() => ({
 const Navbar = () => {
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => {
-        console.log("Sign out successfully");
-      })
+      .then(() => {})
       .catch((error) => {});
   };
   return (

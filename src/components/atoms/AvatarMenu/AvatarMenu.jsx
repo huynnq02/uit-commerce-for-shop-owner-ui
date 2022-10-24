@@ -1,3 +1,7 @@
+/**
+ * Dropdown Avatar Menu component
+ * file: ProductDetail.jsx
+ */
 import { Menu } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import React, { Fragment } from "react";

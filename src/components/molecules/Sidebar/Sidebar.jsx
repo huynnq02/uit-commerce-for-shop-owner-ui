@@ -20,9 +20,7 @@ const Sidebar = () => {
    */
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => {
-        console.log("Sign out successfully");
-      })
+      .then(() => {})
       .catch((error) => {});
   };
   return (
