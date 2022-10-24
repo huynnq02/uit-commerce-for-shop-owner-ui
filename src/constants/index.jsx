@@ -231,7 +231,7 @@ export const TRANSACTIONS_COLUMN = [
     field: "orderAddress",
     headerName: "Order Address",
     headerClassName: "addColor",
-    width: 250,
+    width: 350,
   },
   {
     field: "orderDate",
@@ -249,6 +249,6 @@ export const TRANSACTIONS_COLUMN = [
     field: "shippingTotal",
     headerName: "Shipping Price",
     headerClassName: "addColor",
-    width: 150,
+    width: 450,
   },
 ];
