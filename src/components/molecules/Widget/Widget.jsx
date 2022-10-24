@@ -74,7 +74,7 @@ const Widget = ({ type }) => {
             </li>
           </Link>
         ),
-        number: "220",
+        number: "4.800.000",
         percentage: "40",
         icon: (
           <MonetizationOnOutlined
@@ -98,7 +98,7 @@ const Widget = ({ type }) => {
             </li>
           </Link>
         ),
-        number: "430",
+        number: "7.500.000",
         percentage: "30",
         icon: (
           <AccountBalanceWalletOutLinedIcon
@@ -121,7 +121,7 @@ const Widget = ({ type }) => {
         <span className="title">{data.title}</span>
         <span className="counter">
           {data.number}
-          {data.isMoney && " Dollar"}{" "}
+          {data.isMoney && " VND"}{" "}
         </span>
         <span className="link">{data.link}</span>
       </div>
