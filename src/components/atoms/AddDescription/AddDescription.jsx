@@ -9,8 +9,16 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 const AddDescription = ({ handleChange, value }) => {
   return (
-    <div style={{ width: "100%" }}>
-      {" "}
+    <div
+      style={{
+        width: "80%",
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+        marginBottom: "20px"
+      }}
+    >
+      {"Description: "}
       <ReactQuill
         theme="snow"
         value={value}

@@ -1,3 +1,7 @@
+/*
+ * Data Grid Column component
+ * file: ProductComponent.scss
+ */
 import trashCanIcon from "../../../assets/icons/trashCanIcon.png";
 import infoIcon from "../../../assets/icons/infoIcon.png";
 import greenIcon from "../../../assets/icons/greenDotIcon.png";
@@ -53,7 +57,6 @@ export const OrderColumn = [
       </strong>
     ),
     flex: 1,
-    // width: 150,
   },
   {
     field: "userImg",
@@ -94,7 +97,6 @@ export const OrderColumn = [
     flex: 2,
     sortAble: true,
     editable: true,
-    // width: 250,
   },
   {
     field: "orderAddress",
@@ -108,14 +110,11 @@ export const OrderColumn = [
     ),
     flex: 3.3,
     editable: true,
-    // width: 350,
   },
   {
     field: "orderDate",
     headerName: "Date",
     headerClassName: "__headerDataGrid",
-    // valueFormatter: ({ value }) =>
-    //   `${value.date} ${value.month} ${value.year}`,
     renderHeader: (params) => (
       <strong>
         <p>Date</p>
@@ -123,7 +122,6 @@ export const OrderColumn = [
     ),
     flex: 1.5,
     editable: true,
-    // width: 180,
   },
   {
     field: "Total",
@@ -137,7 +135,6 @@ export const OrderColumn = [
     ),
     flex: 2,
     editable: true,
-    // width: 100,
   },
   {
     field: "orderStatus",
@@ -155,8 +152,6 @@ export const OrderColumn = [
     renderCell: (params) => {
       return StatusCheckerRender(params.row.orderStatus);
     },
-
-    // width: 200,
   },
 ];
 

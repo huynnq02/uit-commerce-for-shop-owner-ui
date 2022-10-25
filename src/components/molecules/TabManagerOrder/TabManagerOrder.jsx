@@ -1,117 +1,23 @@
+/*
+ * Tab manager order component
+ * file: TabManagerOrder.jsx
+ */
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import { DataGrid} from "@mui/x-data-grid";
-import { width } from "@mui/system";
-import { Avatar } from "@mui/material";
-import { collection, doc, getDocs } from "firebase/firestore";
+import { DataGrid } from "@mui/x-data-grid";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase/firebase-config";
-import Popup from '../../atoms/Popup/Popup';
-import {
-  StatusCheckerRender,
-  OrderColumn,
-  ActionColumn,
-} from "../../molecules/TabManagerOrder/DataGridColumns";
 import ViewDetail from "./ViewDetail";
 
-
 // import icons and images
-import manIcon from "../../../assets/icons/manIcon.png";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import greenIcon from "../../../assets/icons/greenDotIcon.png";
 import greyIcon from "../../../assets/icons/greyDotIcon.png";
 import redIcon from "../../../assets/icons/redDotIcon.png";
-import downArrowIcon from "../../../assets/icons/downArrowIcon.png";
-import settingsIcon from "../../../assets/icons/settingsIcon.png";
-import trashCanIcon from "../../../assets/icons/trashCanIcon.png";
 import infoIcon from "../../../assets/icons/infoIcon.png";
-import CheckMarkIcon from "../../../assets/icons/checkMarkIcon.png";
-
-
-// dummy data
-// const DataOrder = [
-//   {
-//     id: 1,
-//     userImg: manIcon,
-//     userName: "Brooklyn Zoe",
-//     userAddress: "302 Snider Street, RUTLAND, VT, 05701",
-//     orderDate: {
-//       date: 31,
-//       month: "Jul",
-//       year: 2022,
-//     },
-//     totalPrice: 64.0,
-//     orderStatus: "Pending",
-//   },
-//   {
-//     id: 2,
-//     userImg: manIcon,
-//     userName: "John McCormick",
-//     userAddress: "1096 Wiseman Street, CALMAR, IA, 52132",
-//     orderDate: {
-//       date: 1,
-//       month: "Aug",
-//       year: 2022,
-//     },
-//     totalPrice: 35.0,
-//     orderStatus: "Dispatch",
-//   },
-//   {
-//     id: 3,
-//     userImg: manIcon,
-//     userName: "Sandra Pugh",
-//     userAddress: "1640 Thorn Street, SALE CITY, GA, 98106",
-//     orderDate: {
-//       date: 2,
-//       month: "Aug",
-//       year: 2022,
-//     },
-//     totalPrice: 74.0,
-//     orderStatus: "Completed",
-//   },
-//   {
-//     id: 4,
-//     userImg: manIcon,
-//     userName: "Vernie Hart",
-//     userAddress: "3989 Oak Drive, DOVER, RE, 19906",
-//     orderDate: {
-//       date: 2,
-//       month: "Aug",
-//       year: 2022,
-//     },
-//     totalPrice: 82.0,
-//     orderStatus: "Pending",
-//   },
-//   {
-//     id: 5,
-//     userImg: manIcon,
-//     userName: "Mark Clark",
-//     userAddress: "1915 Augusta Park, NASSAU, NY, 12062",
-//     orderDate: {
-//       date: 3,
-//       month: "Aug",
-//       year: 2022,
-//     },
-//     totalPrice: 39.0,
-//     orderStatus: "Dispatch",
-//   },
-//   {
-//     id: 6,
-//     userImg: manIcon,
-//     userName: "Rebekah Foster",
-//     userAddress: "3445 Park Boulevard, BIOLA, CA, 93606",
-//     orderDate: {
-//       date: 3,
-//       month: "Aug",
-//       year: 2022,
-//     },
-//     totalPrice: 67.0,
-//     orderStatus: "Pending",
-//   },
-// ];
 
 // function render Status checker
 
@@ -121,7 +27,8 @@ const TabManagerOrder = () => {
   const [openPopup, setOpenPopup] = useState(false);
   const [openPopupChangeStatus, setOpenPopupChangeStatus] = useState(false);
   const [dataRowSelected, setDataRowSelected] = useState([]);
-  const [dataRowSelectedChangeStatus, setDataRowSelectedChangeStatus] = useState([]);
+  const [dataRowSelectedChangeStatus, setDataRowSelectedChangeStatus] =
+    useState([]);
   // columns for DataGrid table
   const columns = [
     {
@@ -259,13 +166,13 @@ const TabManagerOrder = () => {
         };
         const onClickApprove = () => {
           OnClickApproveItem(params.row);
-        }
+        };
         const orderStatus = params.row.orderStatus;
         var _props = {
           onClick: onClick,
           onClickApprove: onClickApprove,
           orderStatus: orderStatus,
-        }
+        };
         return ActionRender(_props);
       },
     },
@@ -331,9 +238,8 @@ const TabManagerOrder = () => {
     setOpenPopupChangeStatus(true);
   };
   const onCellEditCommitDataGrid = (cellData) => {
-    console.log('onCellEditCommitDataGrid ' + cellData.orderStatus);
-  }
-
+    console.log("onCellEditCommitDataGrid " + cellData.orderStatus);
+  };
 
   const ActionRender = (props) => {
     return (
@@ -341,20 +247,6 @@ const TabManagerOrder = () => {
         <button onClick={props.onClick}>
           <img src={infoIcon} alt="Setting Icon" />
         </button>
-        {/* {props.orderStatus === "Completed" ||
-        props.orderStatus === "Cancelled" ? (
-          <button className="btnNotLink">
-            <img src={CheckMarkIcon} alt="Approve Icon" />
-          </button>
-        ) : (
-          <button onClick={props.onClickApprove}>
-            <img src={CheckMarkIcon} alt="Approve Icon" />
-          </button>
-        )} */}
-        {/* 
-        <button>
-          <img src={trashCanIcon} alt="Down Arrow" />
-        </button> */}
       </div>
     );
   };
@@ -407,7 +299,10 @@ const TabManagerOrder = () => {
             height: 650,
           }}
           checkboxSelection={false}
-          isCellEditable={(params) => params.row.orderStatus !== 'Completed' || params.row.orderStatus === 'Cancelled'}
+          isCellEditable={(params) =>
+            params.row.orderStatus !== "Completed" ||
+            params.row.orderStatus === "Cancelled"
+          }
           getRowSpacing={(params) => ({
             top: params.isFirstVisible ? 0 : 5,
             bottom: params.isLastVisible ? 5 : 0,
@@ -573,10 +468,10 @@ const TabManagerOrder = () => {
   };
   const _handleClosePopupChangeStatus = (props) => {
     setOpenPopupChangeStatus((prev) => !prev);
-  }
+  };
   const _handleClosePopupWithAgreement = () => {
     setOpenPopupChangeStatus((prev) => !prev);
-  }
+  };
   return (
     <Box sx={{ width: "inherit", height: "inherit", padding: "5%" }}>
       <TabContext value={value}>
@@ -617,7 +512,6 @@ const TabManagerOrder = () => {
         orderStatus={dataRowSelected.orderStatus}
         orderId={dataRowSelected.id}
       />
-      
     </Box>
   );
 };

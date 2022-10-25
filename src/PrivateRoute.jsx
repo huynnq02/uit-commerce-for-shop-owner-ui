@@ -7,8 +7,8 @@ import { Navigate } from "react-router-dom";
 import { Outlet } from "react-router-dom/dist";
 import { useAuth } from "./Context/AuthContext/AuthContext";
 export default function PrivateRoute() {
-  const {adminInfo}= useAuth();
-  
+  const { adminInfo } = useAuth();
+
   if (adminInfo) {
     // admin is signed in
     return <Outlet />;
