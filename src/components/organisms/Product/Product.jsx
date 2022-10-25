@@ -49,7 +49,7 @@ const Product = () => {
     } else if (productInfor.quantities < 0 || !productInfor.quantities) {
       setErrorMess(`Quantities can not be empty!`);
       return false;
-    } else if (productInfor.sales < 0 || productInfor.sales === null) {
+    } else if (productInfor.sales < 0 || !productInfor.sales) {
       setErrorMess(`Sales can not be empty!`);
       return false;
     } else if (!descriptions) {
@@ -90,8 +90,8 @@ const Product = () => {
    * @private
    * @params event
    */
-  const _handleChangeDescriptions = (e) => {
-    setDescriptions(e.target.value);
+  const _handleChangeDescriptions = (value) => {
+    setDescriptions(value);
   };
 
   /**
@@ -158,6 +158,7 @@ const Product = () => {
       (async () => {
         const newRef = doc(collection(db, "products"));
         await setDoc(newRef, {
+          id: newRef.id,
           active: active,
           category,
           color: colors,
@@ -178,6 +179,7 @@ const Product = () => {
                 setErrorMess("Adding success!");
                 setOpenMess(true);
                 elementRef.current?.scrollIntoView({ behavior: "smooth" });
+                window.scrollTo(0, 0);
               });
             });
           })
@@ -189,6 +191,7 @@ const Product = () => {
       setErrorType("error");
       setOpenMess(true);
       elementRef.current?.scrollIntoView({ behavior: "smooth" });
+      window.scrollTo(0, 0);
     }
   };
 

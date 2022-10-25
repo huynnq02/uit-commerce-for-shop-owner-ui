@@ -1,10 +1,12 @@
-import "./Transaction.sass";
+/**
+ * Detail Transaction of admin dashboard and view info user
+ * file: Transaction.jsx
+ */
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase/firebase-config";
 import Table from "../../organisms/Table/Table";
 
-// Detail Transaction of admin dashboard and view info user
 const Transaction = () => {
   const [orders, setOrders] = useState([]);
   useEffect(() => {
@@ -19,9 +21,7 @@ const Transaction = () => {
       setOrders(docs);
     })();
   }, []);
-  return (
-        <Table orders={orders}  />
-  );
+  return <Table orders={orders} />;
 };
 
 export default Transaction;

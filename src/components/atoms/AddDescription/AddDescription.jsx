@@ -5,16 +5,26 @@
 import React from "react";
 import "./AddDescription.scss";
 import PropsType from "prop-types";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 const AddDescription = ({ handleChange, value }) => {
   return (
-    <label className="formInput">
-      Description:
-      <textarea
-        placeholder="Add product's descriptions"
+    <div
+      style={{
+        width: "80%",
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+        marginBottom: "20px"
+      }}
+    >
+      {"Description: "}
+      <ReactQuill
+        theme="snow"
         value={value}
         onChange={(e) => handleChange(e)}
-      />
-    </label>
+      ></ReactQuill>
+    </div>
   );
 };
 AddDescription.propstype = {

@@ -1,126 +1,333 @@
+/*
+ * scss for tab manager order component
+ * file: TabManagerOrder.scss
+ */
 @include tablet {
-    .containerListedAllOrder {
-        display: flex;
-        width: 100%;
-        height: 20em;
-        text-align: center;
-    }
-    .__headerDataGrid {
-        color: $WhiteColor;
-        font-size: 20px;
-        background-color: $DarkPrimaryColor;
-        float: left;
-    }
-    .MuiDataGrid-colCellTitle {
-        display: block;
-        text-align: center;
-        width: 100%;
-    }
-    .MuiDataGrid-row--editing {
-        
-    }
-    .MuiDataGrid-rowCount {
-        
-    }
-    .MuiDataGrid-row {
-        font-size: 14px;
-        font-weight: 400;
-        color: $DarkPrimaryColor;
-    }
-    .MuiDataGrid-panelContent  {
-        height: 50em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 25em;
-    }
-    .containerDispatchStatus {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        width: 80px;
-        height: 80px;
-
-    }
-    .containerDispatchStatus img {
-        height: 25px;
-        width: 25px;
-        align-self: center;
-    }
-    .containerDispatchStatus p {
-        font-size: 15px;
-        color: green;
-        align-self: center;
-        margin-left: 10%;
-    }
-    .containerCompletedStatus {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        width: 80px;
-        height: 80px;
-    }
-    .containerCompletedStatus img {
-        height: 25px;
-        width: 25px;
-        align-self: center;
-    }
-    .containerCompletedStatus p {
-        font-size: 15px;
-        color: gray;
-        align-self: center;
-        margin-left: 10%;
-    }
-    .containerPendingStatus {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        width: 80px;
-        height: 80px;
-    }
-    .containerPendingStatus img {
-        height: 25px;
-        width: 25px;
-        align-self: center;
-    }
-    .containerPendingStatus p {
-        font-size: 15px;
-        color: red;
-        align-self: center;
-        margin-left: 10%;
-    }
-    .MuiSvgIcon-root {
-        fill: #FFF;
-    }
-    .MuiSvgIcon-fontSizeSmall {
-        fill: #FFF;
-    }
-    .containerBtnActionDataGrid {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        width: 80;
-        height: 80;
-        align-items: center;
-    }
-    .containerBtnActionDataGrid button {
-        width: 55px;
-        height: 40px;
-        border-radius: 30%;
-        border-color: transparent;
-        align-items: center;
-        justify-content: center;
-        align-self: center;
-        margin-right: 15%;
-        cursor: pointer;
-    }
-    .containerBtnActionDataGrid button>img {
+  .containerListedAllOrder {
+    display: flex;
+    width: 100%;
+    height: 20em;
+    text-align: center;
+  }
+  .__headerDataGrid {
+    color: $WhiteColor;
+    font-size: 20px;
+    background-color: $DarkPrimaryColor;
+  }
+  .MuiDataGrid-colCellTitle {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+  .MuiDataGrid-row {
+    font-size: 14px;
+    font-weight: 400;
+    color: $DarkPrimaryColor;
+  }
+  .MuiDataGrid-panelContent {
+    height: 50em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25em;
+  }
+  .containerDispatchStatus {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 80px;
+    height: 80px;
+  }
+  .containerDispatchStatus img {
+    height: 25px;
+    width: 25px;
+    align-self: center;
+  }
+  .containerDispatchStatus p {
+    font-size: 15px;
+    color: green;
+    align-self: center;
+    margin-left: 10%;
+  }
+  .containerCompletedStatus {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 80px;
+    height: 80px;
+  }
+  .containerCompletedStatus img {
+    height: 25px;
+    width: 25px;
+    align-self: center;
+  }
+  .containerCompletedStatus p {
+    font-size: 15px;
+    color: gray;
+    align-self: center;
+    margin-left: 10%;
+  }
+  .containerPendingStatus {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 80px;
+    height: 80px;
+  }
+  .containerPendingStatus img {
+    height: 25px;
+    width: 25px;
+    align-self: center;
+  }
+  .containerPendingStatus p {
+    font-size: 15px;
+    color: red;
+    align-self: center;
+    margin-left: 10%;
+  }
+  .containerCancelledStatus {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 80px;
+    height: 80px;
+  }
+  .containerCancelledStatus img {
+    height: 25px;
+    width: 25px;
+    align-self: center;
+  }
+  .containerCancelledStatus p {
+    font-size: 15px;
+    color: $PrimaryColor;
+    text-decoration: line-through;
+    align-self: center;
+    margin-left: 10%;
+  }
+  .MuiSvgIcon-root {
+    fill: #fff;
+  }
+  .MuiSvgIcon-fontSizeSmall {
+    fill: #fff;
+  }
+  .containerBtnActionDataGrid {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 120;
+    height: 80;
+    align-items: center;
+    .btnFadeApprove {
+      width: 55px;
+      height: 40px;
+      padding: 10px;
+      border: 1px dotted black;
+      border-radius: 30%;
+      align-items: center;
+      justify-content: center;
+      align-self: center;
+      margin-right: 15%;
+      opacity: 40%;
+      cursor: pointer;
+      img {
         height: 18px;
         width: 18px;
         align-self: center;
         object-fit: contain;
+      }
     }
-    .containerBtnActionDataGrid button:hover {
-        transform: translateY(-0.25em);
+  }
+  .containerBtnActionDataGrid button {
+    width: 55px;
+    height: 40px;
+    padding: 10px;
+    border: 1px dotted black;
+    border-radius: 30%;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    margin-right: 15%;
+    cursor: pointer;
+    img {
+      height: 18px;
+      width: 18px;
+      align-self: center;
+      object-fit: contain;
     }
+  }
+  .btnNotLink {
+    width: 55px;
+    height: 40px;
+    padding: 10px;
+    border: 1px dotted red;
+    border-radius: 30%;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    margin-right: 15%;
+    cursor: pointer;
+    opacity: 20%;
+    img {
+      height: 18px;
+      width: 18px;
+      align-self: center;
+      object-fit: contain;
+    }
+  }
+  .btnLink {
+    width: 55px;
+    height: 40px;
+    padding: 10px;
+    border: 1px dotted black;
+    border-radius: 30%;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    margin-right: 15%;
+    cursor: pointer;
+    img {
+      height: 18px;
+      width: 18px;
+      align-self: center;
+      object-fit: contain;
+    }
+  }
+  .btnOpen {
+    width: 55px;
+    height: 40px;
+    padding: 10px;
+    border: 1px dotted black;
+    border-radius: 30%;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    margin-right: 15%;
+    cursor: pointer;
+    img {
+      height: 18px;
+      width: 18px;
+      align-self: center;
+      object-fit: contain;
+    }
+  }
+  .cellActionBtn {
+    display: flex;
+    flex-direction: row;
+    float: left;
+    justify-content: space-evenly;
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    .btnMoreInfo {
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: darkblue;
+      border: 1px dotted rgba(0, 0, 139, 0.596);
+      cursor: pointer;
+    }
+    .btnDelRow {
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: red;
+      border: 1px dotted red;
+      cursor: pointer;
+    }
+    .btnDisableClick {
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: green;
+      border: 1px dotted green;
+      opacity: 30%;
+      cursor: pointer;
+    }
+    .btnChangeStatus {
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: green;
+      border: 1px dotted green;
+      cursor: pointer;
+    }
+  }
+  .containerPopup {
+    margin: 0%;
+    display: flex;
+    background-color: LightGreyColor;
+    flex-direction: column;
+    border: 2px solid transparent;
+    background-color: $WhiteColor;
+    width: 800px;
+    height: auto;
+    h3 {
+      font-size: 20px;
+      color: orangered;
+      align-self: flex-end;
+      margin-right: 4%;
+      margin-bottom: 5%;
+    }
+    .btnDisableUpdate {
+      width: 150px;
+      height: 80px;
+      background-color: $DarkPrimaryColor;
+      color: #fff;
+      align-self: center;
+      opacity: 40%;
+      font-size: 20px;
+      align-self: flex-end;
+      margin-right: 3%;
+    }
+    .btnUpdate {
+      width: 150px;
+      height: 80px;
+      background-color: $DarkPrimaryColor;
+      color: #fff;
+      align-items: center;
+      font-size: 20px;
+      align-self: flex-end;
+      margin-right: 3%;
+      cursor: pointer;
+    }
+  }
+  .containerItemPopup {
+    display: flex;
+    margin: 2%;
+    padding: 2%;
+    width: 765px;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1.5px solid $DarkPrimaryColor;
+    border-radius: 0;
+    background-color: $LightGreyColor;
+    div {
+      display: flex;
+      flex-direction: row;
+      img {
+        width: 100px;
+        height: 100px;
+        margin-right: 2%;
+      }
+      div {
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        h3 {
+          font-size: 15px;
+          font-weight: bold;
+          color: $DarkPrimaryColor;
+          align-self: flex-start;
+        }
+        p {
+          font-size: 13px;
+        }
+      }
+    }
+    .containerItemPopup__itemTotal {
+      font-size: 15px;
+      font-weight: bold;
+      color: orangered;
+      height: inherit;
+      align-self: center;
+      margin-left: 10%;
+      float: right;
+    }
+  }
 }

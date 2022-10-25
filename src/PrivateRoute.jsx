@@ -1,8 +1,19 @@
+/**
+ * Private routes
+ * file: PrivateRoute.jsx
+ */
 import React, { useContext } from "react";
-import { Route, Navigate, Routes, useLocation } from "react-router-dom";
-import { UserContext } from "./Context/UserContext/UserContext";
-import {Outlet} from "react-router-dom/dist"
-export default function PrivateRoute({ children, ...rest }) {
-  let { isLogin } = useContext(UserContext);
-  return isLogin ? <Outlet/> : <Navigate to="/login" />;
+import { Navigate } from "react-router-dom";
+import { Outlet } from "react-router-dom/dist";
+import { useAuth } from "./Context/AuthContext/AuthContext";
+export default function PrivateRoute() {
+  const { adminInfo } = useAuth();
+
+  if (adminInfo) {
+    // admin is signed in
+    return <Outlet />;
+  } else {
+    // No user is signed in.
+    return <Navigate to="/login" />;
+  }
 }

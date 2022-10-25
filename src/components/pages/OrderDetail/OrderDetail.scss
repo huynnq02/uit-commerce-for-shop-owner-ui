@@ -1,0 +1,83 @@
+@include mobile {
+}
+
+@include tablet {
+  //Header Style
+  .orderDetail {
+    box-sizing: border-box;
+  }
+  .orderDetailHeader {
+    padding: 2% 5% 2% 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: inherit;
+    border-bottom: 1px;
+    border-color: $LightGreyColor;
+    div {
+        flex: 2,
+    }
+    img {
+      width: 25px;
+      height: 25px;
+      float: left;
+      margin-right: 2%;
+    }
+    h3 {
+        font-size: 18px;
+        font-weight: 400;   
+    }
+    .containerIdAndStatus {
+      display: flex;
+      flex-direction: row;
+      float: right;
+      margin-left: 25%;
+      flex: 2;
+      h3:nth-child(1) {
+        font-size: 18px;
+        font-weight: 400;
+        color: $DarkPrimaryColor;
+        float: left;
+        margin-right: 15%;
+      }
+      h3:nth-child(2) {
+        font-size: 18px;
+        font-weight: 400;
+        color: orangered;
+      }
+    }
+    .containerOrderProducts {
+        margin-bottom: 2%;
+        width: inherit;
+        display: flex;
+        flex-direction: row;
+        img {
+            width: 50px;
+            height: 50px;
+            object-fit: fill;
+        }
+        
+      }
+      .containerOrderProducts__Text {
+        width: inherit;
+        display: flex;
+        flex-direction: row;
+         h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: $DarkPrimaryColor;
+         }
+         p {
+            font-size: 15px;
+            font-weight: 400;
+            color: $DarkPrimaryColor;
+         }
+         span {
+            font-size: 20px;
+            font-weight: 500;
+            color: $DarkPrimaryColor;
+         }
+    }
+  }
+  
+}
