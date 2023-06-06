@@ -2,8 +2,7 @@
  * Login pages
  * file: Login.jsx
  */
-import React, { useContext, useState } from "react";
-import { useAuth } from "../../../Context/AuthContext/AuthContext";
+import React, { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, styled } from "@mui/system";
 import { LoadingButton } from "@mui/lab";
@@ -11,8 +10,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Card, Grid, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../firebase/firebase-config";
 import { toast } from "react-toastify";
 import InputUser from "../../molecules/Input/InputUser";
 import IconEyeOpen from "../../../assets/icons/IconEyes/IconEyeOpen";
@@ -57,13 +54,6 @@ const theme = createTheme({
 });
 //Style CSS End
 
-// admin login hint info
-const initialValues = {
-  email: "admin@gmail.com",
-  password: "",
-};
-
-// form field validation
 const validationSchema = Yup.object().shape({
   password: Yup.string()
     .min(6, "Password must be 6 character length")
@@ -73,17 +63,35 @@ const validationSchema = Yup.object().shape({
     .required("Email is required!"),
 });
 
+const initialValues = {
+  email: "",
+  password: "",
+};
+
 const Login = () => {
   let navigate = useNavigate();
-
-  const handleLogin = async (values) => {
-    try {
-      console.log("Login");
-      navigate("/");
-    } catch (errors) {
-      console.log(errors);
-      toast.error("Your email or password is incorrect");
+  const handleResponse = (response) => {
+    if (!response.success) {
+      toast.error(response.message);
+      console.log(response.message);
+      return;
     }
+    navigate("/");
+  };
+  const handleLogin = async (values) => {
+    console.log(values);
+    dispatch(
+      getAPIActionJSON(
+        "loginUser",
+        {
+          email: values.email,
+          password: values.password,
+        },
+        null,
+        "",
+        (e) => handleResponse(e)
+      )
+    );
   };
   const [togglePassword, setTogglePassword] = useState(false);
   const handleTogglePassword = () => {

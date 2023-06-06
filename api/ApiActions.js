@@ -1,7 +1,7 @@
 import { getAPIs } from "./Apis";
 import customAxios from "./AxiosInterceptors";
 
-const host = "https://hiredhero.onrender.com";
+const host = "http://127.0.0.1:8000";
 
 export function getAPIActionJSON(
   type,
@@ -27,7 +27,7 @@ export function getAPIActionJSON(
         console.log(type, response.data);
         if (response.status === 200) {
           dispatch({
-            type: `${type}.reply`, /// loginUser.reply
+            type: `${type}.reply`,
             data: response.data,
             headers: response.headers,
           });

@@ -1,12 +1,7 @@
 export const getAPIs = {
-  loginUser: {
-    name: "loginUser",
-    path: "/api/auth/loginUser",
+  login_shop: {
+    name: "login_shop",
+    path: "/api/shops/login_shop",
     method: "POST",
-  },
-  getAllJobs: {
-    name: "getAllJobs",
-    path: "/api/job/getAllJobs",
-    method: "GET",
   },
 };

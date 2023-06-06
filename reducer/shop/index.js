@@ -4,10 +4,11 @@ const initialState = {
   hotLine: "",
   profilePicture: "",
   address: "",
+  isLoggedIn: false,
 };
 export default function ShopReducer(state = initialState, action) {
   switch (action.type) {
-    case "loginShop.reply":
+    case "login_shop.reply":
       if (action.data.success === true) {
         return {
           ...state,
@@ -16,7 +17,7 @@ export default function ShopReducer(state = initialState, action) {
           hotLine: action.data.data.hotLine,
           profilePicture: action.data.data.profilePicture,
           address: action.data.data.address,
-          isLoggedin: true,
+          items: action.data.data.items,
         };
       }
     /* falls through */

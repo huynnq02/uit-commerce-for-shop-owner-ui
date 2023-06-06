@@ -2,11 +2,12 @@
  * Private routes
  * file: PrivateRoute.jsx
  */
-import React, { useContext } from "react";
-import { Navigate } from "react-router-dom";
+import React from "react";
 import { Outlet } from "react-router-dom/dist";
-import { useAuth } from "./Context/AuthContext/AuthContext";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+
 export default function PrivateRoute() {
-  const { adminInfo } = useAuth();
-  return <Navigate to="/login" />;
+  const isLoggedIn = useSelector((state) => state.shop.isLoggedIn);
+  return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
 }
