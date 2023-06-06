@@ -15,28 +15,24 @@ import ManageCategories from "./components/pages/ManageCategories/ManageCategori
 function App() {
   return (
     <div className="App">
-      <AuthProvider>
-        <Routes>
-          <Route path="login" element={<Login />} />
-          <Route path={"/"} element={<PrivateRoute />}>
-            <Route path="/" element={<Home />} />
-            <Route path="users">
-              <Route index element={<List />} />
-              <Route path=":userId" element={<Single />} />
-              <Route path="edit/:userId" element={<New />} />
-            </Route>
-            <Route path="products">
-              <Route index element={<ListProduct />} />
-              <Route path=":productId" element={<DetailProduct />} />
-              <Route path="new" element={<AddProduct />} />
-            </Route>
-            <Route path="manage-categories" element={<ManageCategories />} />
-            <Route path="orders">
-              <Route index element={<ManageOrder />} />
-            </Route>
-          </Route>
-        </Routes>
-      </AuthProvider>
+      <Routes>
+        <Route path="login" element={<Login />} />
+        <Route path="/" element={<Home />} />
+        <Route path="users">
+          <Route index element={<List />} />
+          <Route path=":userId" element={<Single />} />
+          <Route path="edit/:userId" element={<New />} />
+        </Route>
+        <Route path="products">
+          <Route index element={<ListProduct />} />
+          <Route path=":productId" element={<DetailProduct />} />
+          <Route path="new" element={<AddProduct />} />
+        </Route>
+        <Route path="manage-categories" element={<ManageCategories />} />
+        <Route path="orders">
+          <Route index element={<ManageOrder />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

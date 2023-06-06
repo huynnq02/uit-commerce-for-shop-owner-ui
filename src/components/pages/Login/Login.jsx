@@ -74,30 +74,12 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = () => {
-  let history = useNavigate();
-  const { setAdminInfo } = useAuth();
-  const [admins, setAdmins] = useState([]);
-  //function check admin status
-  function statusUser(email, admins) {
-    let checkAdmin = true;
-    admins.forEach((admin) => {
-      console.log(admin);
-      if (admin.email === email) {
-        checkAdmin = false;
-        return;
-      }
-    });
-    return checkAdmin;
-  }
+  let navigate = useNavigate();
 
   const handleLogin = async (values) => {
     try {
-      if (statusUser(values.email, admins) === false) {
-        toast.error("Admin is not found");
-        return;
-      }
-      await signInWithEmailAndPassword(auth, values.email, values.password);
-      history("/");
+      console.log("Login");
+      navigate("/");
     } catch (errors) {
       console.log(errors);
       toast.error("Your email or password is incorrect");
