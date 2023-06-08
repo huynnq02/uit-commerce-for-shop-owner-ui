@@ -113,7 +113,7 @@ const AddImage = ({ handleChangeImage, displayImage }) => {
     </div>
   );
 };
-AddImage.propsType = {
+AddImage.propsTypes = {
   displayImage: PropsType.object,
   handleChangeImage: PropsType.func,
 };

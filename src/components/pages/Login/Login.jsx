@@ -2,7 +2,9 @@
  * Login pages
  * file: Login.jsx
  */
-import React, { useReducer, useState } from "react";
+import React, { useState } from "react";
+import { getAPIActionJSON } from "../../../../api/ApiActions";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Box, styled } from "@mui/system";
 import { LoadingButton } from "@mui/lab";
@@ -14,6 +16,7 @@ import { toast } from "react-toastify";
 import InputUser from "../../molecules/Input/InputUser";
 import IconEyeOpen from "../../../assets/icons/IconEyes/IconEyeOpen";
 import IconEyeClose from "../../../assets/icons/IconEyes/IconEyeClose";
+import { connectStorageEmulator } from "firebase/storage";
 //Style CSS
 const FlexBox = styled(Box)(() => ({
   display: "flex",
@@ -69,6 +72,7 @@ const initialValues = {
 };
 
 const Login = () => {
+  const dispatch = useDispatch();
   let navigate = useNavigate();
   const handleResponse = (response) => {
     if (!response.success) {
@@ -79,10 +83,11 @@ const Login = () => {
     navigate("/");
   };
   const handleLogin = async (values) => {
+    console.log("DATAAAAA");
     console.log(values);
     dispatch(
       getAPIActionJSON(
-        "loginUser",
+        "login_shop",
         {
           email: values.email,
           password: values.password,

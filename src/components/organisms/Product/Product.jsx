@@ -18,6 +18,9 @@ import CircularUnderLoad from "../../atoms/CircularLoading/CircularLoading";
 import Button from "../../atoms/Button/Button";
 import AlertMessage from "../../atoms/Alert/Alert";
 import "./Product.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { getAPIActionJSON } from "../../../../api/ApiActions";
 
 const Product = () => {
   const [descriptions, setDescriptions] = useState("");
@@ -152,94 +155,53 @@ const Product = () => {
    * @private
    * @params none
    */
-  const _handleSubmit = () => {
-    if (_handleValidation()) {
-      setOpen(true);
-      (async () => {
-        const newRef = doc(collection(db, "products"));
-        await setDoc(newRef, {
-          id: newRef.id,
-          active: active,
-          category,
-          color: colors,
-          description: descriptions,
-          name: productInfor.name,
-          price: Number(productInfor.price),
-          quantities: Number(productInfor.quantities),
-          sales: 0,
-          sold: 0,
-          sizes: sizes,
-        })
-          .then(() => {
-            let id = newRef.id;
-            _handlePushImage(id).then(() => {
-              _handlePushListImages(id).then(() => {
-                setOpen(false);
-                setErrorType("success");
-                setErrorMess("Adding success!");
-                setOpenMess(true);
-                elementRef.current?.scrollIntoView({ behavior: "smooth" });
-                window.scrollTo(0, 0);
-              });
-            });
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      })();
-    } else {
+
+  const dispatch = useDispatch();
+  const shopId = useSelector((state) => state.shop.id);
+  console.log("shop id: " + shopId);
+  const handleResponse = (response) => {
+    if (!response.success) {
+      toast.error(response.message);
+      console.log(response.message);
+      return;
+    }
+    setOpen(false);
+    setErrorType("success");
+    setErrorMess("Adding success!");
+    setOpenMess(true);
+    elementRef.current?.scrollIntoView({ behavior: "smooth" });
+    window.scrollTo(0, 0);
+  };
+  const _handleSubmit = async () => {
+    console.log(detailImages);
+    if (_handleValidation())
+      dispatch(
+        getAPIActionJSON(
+          "create_item",
+          {
+            active: active,
+            category: category,
+            colors: colors.join(", "),
+            description: descriptions,
+            name: productInfor.name,
+            price: Number(productInfor.price),
+            quantity: Number(productInfor.quantities),
+            discount: productInfor.sales,
+            sizes: sizes.join(", "),
+            image: displayImage,
+            detail_image: detailImages.map((file) => file),
+          },
+          null,
+          `/${shopId}`,
+          (e) => handleResponse(e)
+        )
+      );
+    else {
       setErrorType("error");
       setOpenMess(true);
       elementRef.current?.scrollIntoView({ behavior: "smooth" });
       window.scrollTo(0, 0);
     }
-  };
-
-  /**
-   * handle when push image to storage and push image's link to firestore
-   * @private
-   * @params id
-   */
-  const _handlePushImage = async (id) => {
-    const promises = [];
-    const storageRef = ref(storage, `product-images/${displayImage.name}`);
-    promises.push(
-      uploadBytesResumable(storageRef, displayImage).then((uploadResult) => {
-        return getDownloadURL(uploadResult.ref);
-      })
-    );
-    const photo = await Promise.all(promises);
-    const newRef = doc(collection(db, "products"), id);
-    await updateDoc(newRef, {
-      image: photo[0],
-    });
-  };
-
-  /**
-   * handle when push list of detail image to storage and push images's link to firestore
-   * @private
-   * @params id
-   */
-  const _handlePushListImages = async (id) => {
-    const promises = [];
-
-    for (var i = 0; i < detailImages.length; i++) {
-      const file = detailImages[i];
-      if (file !== null) {
-        const storageRef = ref(storage, `product-images/${file.name}`);
-
-        promises.push(
-          uploadBytesResumable(storageRef, file).then((uploadResult) => {
-            return getDownloadURL(uploadResult.ref);
-          })
-        );
-      }
-    }
-    const photos = await Promise.all(promises);
-    const newRef = doc(collection(db, "products"), id);
-    await updateDoc(newRef, {
-      detailImages: photos,
-    });
   };
 
   return (

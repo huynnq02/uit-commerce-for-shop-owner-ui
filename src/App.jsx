@@ -1,4 +1,5 @@
 import { Provider } from "react-redux";
+import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import "./App.scss";
 import Home from "./components/pages/Home/Home";
@@ -17,6 +18,8 @@ import ReactDOM from "react-dom";
 import store from "../app/store";
 
 function App() {
+  const state = useSelector((state) => state);
+  console.log("current state", state);
   return (
     <div className="App">
       <Routes>
@@ -50,6 +53,3 @@ export default function renderApp() {
     </Provider>
   );
 }
-
-// Render the app
-renderApp();

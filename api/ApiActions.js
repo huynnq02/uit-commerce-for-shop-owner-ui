@@ -20,6 +20,9 @@ export function getAPIActionJSON(
       url: host + api.path + addparams,
       params: params,
       data: data,
+      headers: {
+        "Content-Type": "multipart/form-data", // Set the content type to 'multipart/form-data'
+      },
     })
       .then(function (response) {
         dispatch({ type: "loading.success" });

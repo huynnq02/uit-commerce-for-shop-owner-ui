@@ -12,6 +12,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import InputOutlinedIcon from "@mui/icons-material/InputOutlined";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebase/firebase-config";
+import { useDispatch } from "react-redux";
 
 //Style
 const UserMenu = styled(Box)(() => ({
@@ -39,10 +40,12 @@ const StyledItem = styled(MenuItem)(() => ({
 }));
 //Style End
 const Navbar = () => {
+  const dispatch = useDispatch();
   const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {})
-      .catch((error) => {});
+    console.log("====================================");
+    console.log(kkk);
+    console.log("====================================");
+    dispatch({ type: logout });
   };
   return (
     <div className="navbar">

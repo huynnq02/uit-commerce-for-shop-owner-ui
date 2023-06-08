@@ -37,8 +37,9 @@ const AddListImage = ({ listImages, handleChangeImage }) => {
    * @params event
    */
   const _handleUpdateFile = (e) => {
-    handleChangeImage(images.concat([...e.target.files]));
-    setImages(images.concat([...e.target.files]));
+    const updatedImages = images.concat([...e.target.files]);
+    handleChangeImage(updatedImages); // Pass the updated state back to the parent component
+    setImages(updatedImages);
   };
 
   /**
@@ -128,11 +129,11 @@ const AddListImage = ({ listImages, handleChangeImage }) => {
           </label>
           <input
             type="file"
-            multiple
             accept="image/*"
-            id="upload-list-img"
+            multiple
+            id="upload-list-photos"
             onChange={_handleUpdateFile}
-          ></input>
+          />
         </div>
         <div className="list-img">
           {imageURLs.map((item, index) => {
@@ -162,7 +163,7 @@ const AddListImage = ({ listImages, handleChangeImage }) => {
     </div>
   );
 };
-AddListImage.propsType = {
+AddListImage.propsTypes = {
   listImages: PropTypes.array,
   handleChangeImage: PropTypes.func,
 };
