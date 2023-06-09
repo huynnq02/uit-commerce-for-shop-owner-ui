@@ -21,6 +21,7 @@ export function getAPIActionJSON(
       params: params,
       data: data,
       headers: {
+        Accept: "application/json",
         "Content-Type": "multipart/form-data", // Set the content type to 'multipart/form-data'
       },
     })

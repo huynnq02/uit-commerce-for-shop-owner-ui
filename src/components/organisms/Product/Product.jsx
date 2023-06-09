@@ -173,30 +173,35 @@ const Product = () => {
     window.scrollTo(0, 0);
   };
   const _handleSubmit = async () => {
-    console.log(detailImages);
-    if (_handleValidation())
+    if (_handleValidation()) {
+      const formData = new FormData();
+      console.log(detailImages);
+
+      formData.append("active", active);
+      formData.append("category", category);
+      formData.append("colors", colors.join(", "));
+      formData.append("description", descriptions);
+      formData.append("name", productInfor.name);
+      formData.append("price", Number(productInfor.price));
+      formData.append("quantity", Number(productInfor.quantities));
+      formData.append("discount", productInfor.sales);
+      formData.append("sizes", sizes.join(", "));
+      formData.append("image", displayImage);
+      detailImages.forEach((image, index) => {
+        formData.append(`detail_image[${index}]`, image);
+      });
+
+      formData.append("detail_image", detailImages);
+      console.log("FormData content:");
+      for (const pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+      }
       dispatch(
-        getAPIActionJSON(
-          "create_item",
-          {
-            active: active,
-            category: category,
-            colors: colors.join(", "),
-            description: descriptions,
-            name: productInfor.name,
-            price: Number(productInfor.price),
-            quantity: Number(productInfor.quantities),
-            discount: productInfor.sales,
-            sizes: sizes.join(", "),
-            image: displayImage,
-            detail_image: detailImages.map((file) => file),
-          },
-          null,
-          `/${shopId}`,
-          (e) => handleResponse(e)
+        getAPIActionJSON("create_item", formData, null, `/${shopId}`, (e) =>
+          handleResponse(e)
         )
       );
-    else {
+    } else {
       setErrorType("error");
       setOpenMess(true);
       elementRef.current?.scrollIntoView({ behavior: "smooth" });

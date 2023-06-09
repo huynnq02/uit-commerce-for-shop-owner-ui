@@ -1,7 +1,3 @@
-/**
- * Product's add list detail image components
- * file: AddListImage.jsx
- */
 import React, { useEffect, useState } from "react";
 import Popup from "../Popup/Popup";
 import CloseIcon from "@mui/icons-material/Close";
@@ -37,9 +33,8 @@ const AddListImage = ({ listImages, handleChangeImage }) => {
    * @params event
    */
   const _handleUpdateFile = (e) => {
-    const updatedImages = images.concat([...e.target.files]);
-    handleChangeImage(updatedImages); // Pass the updated state back to the parent component
-    setImages(updatedImages);
+    handleChangeImage(images.concat([...e.target.files]));
+    setImages(images.concat([...e.target.files]));
   };
 
   /**
@@ -129,16 +124,16 @@ const AddListImage = ({ listImages, handleChangeImage }) => {
           </label>
           <input
             type="file"
-            accept="image/*"
             multiple
-            id="upload-list-photos"
+            accept="image/*"
+            id="upload-list-img"
             onChange={_handleUpdateFile}
-          />
+          ></input>
         </div>
         <div className="list-img">
           {imageURLs.map((item, index) => {
             return (
-              <div key={index} className="image">
+              <div key={index} className="img">
                 <img
                   onClick={() => _handleClickImage(item)}
                   key={index}
@@ -163,7 +158,7 @@ const AddListImage = ({ listImages, handleChangeImage }) => {
     </div>
   );
 };
-AddListImage.propsTypes = {
+AddListImage.propsType = {
   listImages: PropTypes.array,
   handleChangeImage: PropTypes.func,
 };

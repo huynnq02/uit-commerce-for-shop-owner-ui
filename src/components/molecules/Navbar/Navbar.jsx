@@ -10,9 +10,8 @@ import AvatarMenu from "../../atoms/AvatarMenu/AvatarMenu";
 import { Link } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import InputOutlinedIcon from "@mui/icons-material/InputOutlined";
-import { signOut } from "firebase/auth";
-import { auth } from "../../../firebase/firebase-config";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 
 //Style
 const UserMenu = styled(Box)(() => ({
@@ -47,6 +46,7 @@ const Navbar = () => {
     console.log("====================================");
     dispatch({ type: logout });
   };
+  const name = useSelector((state) => state.shop.name);
   return (
     <div className="navbar">
       <div className="wrapper">
@@ -65,7 +65,7 @@ const Navbar = () => {
                   <Hidden xsDown>
                     <span>
                       Welcome back,
-                      <strong className="admin"> Admin </strong>
+                      <strong className="admin"> {name} </strong>
                     </span>
                   </Hidden>
                   <Avatar
@@ -82,6 +82,16 @@ const Navbar = () => {
                   <li>
                     <DashboardIcon className="icon_avatar" />
                     <span> Home </span>
+                  </li>
+                </Link>
+              </StyledItem>
+              <StyledItem>
+                <Link to="/shop-info">
+                  {" "}
+                  {/* Replace "/shop-info" with the desired route */}
+                  <li>
+                    <StorefrontOutlinedIcon className="icon_avatar" />
+                    <span> Shop Information </span>
                   </li>
                 </Link>
               </StyledItem>
