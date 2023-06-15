@@ -6,10 +6,39 @@ const initialState = {
   profilePicture: "",
   address: "",
   items: [],
+  orders: [],
+  customers: [],
   isLoggedIn: false,
 };
 export default function ShopReducer(state = initialState, action) {
   switch (action.type) {
+    case "get_list_customers.reply":
+      console.log(action.data);
+      console.log("Van zo dc bthg ma ta:", action.data.data);
+      if (action.data.success === true) {
+        console.log("Van zo dc bthg ma ta:", action.data.data);
+        return {
+          ...state,
+          customers: action.data.data,
+        };
+      }
+      break;
+    case "get_all_shop_items.reply":
+      if (action.data.success === true) {
+        return {
+          ...state,
+          items: action.data.data,
+        };
+      }
+      break;
+    case "get_shop_orders.reply":
+      if (action.data.success === true) {
+        return {
+          ...state,
+          orders: action.data.data,
+        };
+      }
+      break;
     case "login_shop.reply":
       if (action.data.success === true) {
         return {

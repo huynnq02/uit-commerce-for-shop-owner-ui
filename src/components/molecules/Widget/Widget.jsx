@@ -10,23 +10,25 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined";
 import { Link } from "react-router-dom";
 import PropsType from "prop-types";
+import { useSelector } from "react-redux";
 
 const Widget = ({ type }) => {
   let data;
-
+  const customers = useSelector((state) => state.shop.customers);
+  const orders = useSelector((state) => state.shop.orders);
   switch (type) {
     case "user":
       data = {
-        title: "USERS",
+        title: "Customers",
         isMoney: false,
         link: (
           <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
-              <span className="viewPage">See all users</span>
+              <span className="viewPage">See all customers</span>
             </li>
           </Link>
         ),
-        number: "12",
+        number: customers.length,
         percentage: "30",
         icon: (
           <PersonOutlineOutlined
@@ -50,7 +52,7 @@ const Widget = ({ type }) => {
             </li>
           </Link>
         ),
-        number: "8",
+        number: orders.length,
         percentage: "50",
         icon: (
           <ShoppingCartOutlinedIcon

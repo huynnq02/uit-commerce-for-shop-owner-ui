@@ -117,7 +117,7 @@ export const PRODUCT_COLUMNS = [
     headerClassName: "header-DG",
     width: 160,
     renderCell: (params) => {
-      return <div>{params.row.quantities}</div>;
+      return <div>{parseInt(params.row.quantity)}</div>;
     },
   },
   {
@@ -126,7 +126,7 @@ export const PRODUCT_COLUMNS = [
     headerClassName: "header-DG",
     width: 160,
     renderCell: (params) => {
-      return <div>{params.row.sales}</div>;
+      return <div>{params.row.discount}</div>;
     },
   },
 ];
@@ -185,12 +185,12 @@ export const CATEGORIES_COLUMNS = [
 ];
 
 export const DATA_CHART = [
-  { name: "January", Total: 1100},
-  { name: "February", Total: 2100},
-  { name: "March", Total: 820},
-  { name: "April", Total: 1620},
-  { name: "May", Total: 820},
-  { name: "June", Total: 1720},
+  { name: "January", Total: 1100 },
+  { name: "February", Total: 2100 },
+  { name: "March", Total: 820 },
+  { name: "April", Total: 1620 },
+  { name: "May", Total: 820 },
+  { name: "June", Total: 1720 },
 ];
 
 export const PRODUCT_INITITAL_VALUE = {
@@ -216,39 +216,60 @@ export const TRANSACTIONS_COLUMN = [
     width: 120,
   },
   {
-    field: "userId",
+    field: "user",
     headerName: "User ID",
     headerClassName: "addColor",
     width: 120,
+    valueGetter: (params) => params.row.user?.id,
   },
   {
-    field: "Total",
+    field: "username",
+    headerName: "User Name",
+    headerClassName: "addColor",
+    width: 120,
+    valueGetter: (params) => params.row.user?.name,
+  },
+  {
+    field: "total",
     headerName: "Total Product Price",
     headerClassName: "addColor",
     width: 200,
   },
   {
-    field: "orderAddress",
+    field: "address",
     headerName: "Order Address",
     headerClassName: "addColor",
     width: 350,
   },
   {
-    field: "orderDate",
+    field: "time",
     headerName: "Order Date",
     headerClassName: "addColor",
     width: 200,
+    renderCell: (params) => {
+      const dateTime = new Date(params.row.time);
+      const formattedDate = dateTime.toLocaleDateString([], {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      });
+      const formattedTime = dateTime.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      return <div>{`${formattedDate} ${formattedTime}`}</div>;
+    },
   },
   {
-    field: "orderStatus",
+    field: "status",
     headerName: "Order Status",
     headerClassName: "addColor",
     width: 200,
   },
-  {
-    field: "shippingTotal",
-    headerName: "Shipping Price",
-    headerClassName: "addColor",
-    width: 450,
-  },
+  // {
+  //   field: "shippingTotal",
+  //   headerName: "Shipping Price",
+  //   headerClassName: "addColor",
+  //   width: 450,
+  // },
 ];

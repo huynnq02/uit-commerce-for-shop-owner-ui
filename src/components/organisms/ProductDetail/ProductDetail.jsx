@@ -4,7 +4,7 @@
  */
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { doc, getDoc, collection, updateDoc } from "firebase/firestore";
+import { doc, collection, updateDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../firebase/firebase-config";
 import { DATA_INPUT_PRODUCT, PRODUCT_INITITAL_VALUE } from "../../../constants";
@@ -30,19 +30,7 @@ const ProductDetail = () => {
   let { productId } = useParams();
 
   useEffect(() => {
-    (async () => {
-      if (!productId) return;
-      else {
-        const docRef = doc(db, "products", productId);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          setProduct(data);
-        } else {
-          console.log("no data");
-        }
-      }
-    })();
+    console.log("product id:", productId);
   }, [productId]);
 
   /**

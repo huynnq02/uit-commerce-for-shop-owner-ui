@@ -9,8 +9,62 @@ import Featured from "../../molecules/Featured/Featured";
 import Chart from "../../atoms/Chart/Chart";
 import Transaction from "../../organisms/Transaction/Transaction";
 import "./Home.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { getAPIActionJSON } from "../../../../api/ApiActions";
+import { useEffect } from "react";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const shopId = useSelector((state) => state.shop.id);
+  // console.log("shop id:", shopId);
+  const handleResponseGetItem = (response) => {
+    if (!response.success) {
+      toast.error(response.message);
+      return;
+    }
+    console.log(response.data);
+  };
+  const getItemsData = () => {
+    dispatch(
+      getAPIActionJSON("get_all_shop_items", null, null, `/${shopId}`, (e) =>
+        handleResponseGetItem(e)
+      )
+    );
+  };
+  const handleResponseGetCustomer = (response) => {
+    if (!response.success) {
+      toast.error(response.message);
+      return;
+    }
+    console.log("Thanh cong r");
+    console.log(response.data);
+  };
+  const getCustomerData = () => {
+    dispatch(
+      getAPIActionJSON("get_list_customers", null, null, `/${shopId}`, (e) =>
+        handleResponseGetCustomer(e)
+      )
+    );
+  };
+  // const handleResponse = (response) => {
+  //   if (!response.success) {
+  //     Alert.alert(response.message);
+  //     return;
+  //   }
+  //   console.log(response.data);
+  // };
+  // const getOrdersData = () => {
+  //   dispatch(
+  //     getAPIActionJSON("get_shop_orders", null, null, `/${shopId}`, (e) =>
+  //       handleResponse(e)
+  //     )
+  //   );
+  // };
+  useEffect(() => {
+    getItemsData();
+    getCustomerData();
+    // getOrdersData();
+  }, [dispatch, shopId]);
   return (
     <div className="home">
       <Sidebar />

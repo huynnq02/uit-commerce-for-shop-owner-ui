@@ -18,6 +18,7 @@ import greenIcon from "../../../assets/icons/greenDotIcon.png";
 import greyIcon from "../../../assets/icons/greyDotIcon.png";
 import redIcon from "../../../assets/icons/redDotIcon.png";
 import infoIcon from "../../../assets/icons/infoIcon.png";
+import { useSelector } from "react-redux";
 
 // function render Status checker
 
@@ -46,7 +47,7 @@ const TabManagerOrder = () => {
       // width: 150,
     },
     {
-      field: "userImg",
+      field: "image",
       headerName: "Avatar",
       headerClassName: "__headerDataGrid",
       renderHeader: (params) => (
@@ -61,7 +62,7 @@ const TabManagerOrder = () => {
             height: 40,
             alignSelf: "center",
           }}
-          src={params.row.userImg}
+          src={params.row.user.profile_picture}
           alt="Avatar"
         />
       ),
@@ -71,10 +72,10 @@ const TabManagerOrder = () => {
       flex: 1.2,
     },
     {
-      field: "userName",
+      field: "name",
       type: "string",
       headerName: "Name",
-      valueFormatter: ({ value }) => `${value}`,
+      valueGetter: (params) => params.row.user.name,
       headerClassName: "__headerDataGrid",
       renderHeader: (params) => (
         <strong>
@@ -91,6 +92,8 @@ const TabManagerOrder = () => {
       type: "string",
       headerName: "Address",
       headerClassName: "__headerDataGrid",
+      valueGetter: (params) => params.row.address,
+
       renderHeader: (params) => (
         <strong>
           <p>Address</p>
@@ -105,7 +108,15 @@ const TabManagerOrder = () => {
       headerName: "Date",
       headerClassName: "__headerDataGrid",
       // valueFormatter: ({ value }) =>
-      //   `${value.date} ${value.month} ${value.year}`,
+      valueGetter: (params) => {
+        const orderDate = new Date(params.row.time);
+        return orderDate.toLocaleDateString("en-US", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        });
+      },
+
       renderHeader: (params) => (
         <strong>
           <p>Date</p>
@@ -119,7 +130,7 @@ const TabManagerOrder = () => {
       field: "Total",
       headerName: "Price",
       headerClassName: "__headerDataGrid",
-      valueFormatter: ({ value }) => `${value} đ`,
+      valueGetter: (params) => params.row.total,
       renderHeader: (params) => (
         <strong>
           <p>Price</p>
@@ -143,7 +154,7 @@ const TabManagerOrder = () => {
         </strong>
       ),
       renderCell: (params) => {
-        return StatusCheckerRender(params.row.orderStatus);
+        return StatusCheckerRender(params.row.status);
       },
 
       // width: 200,
@@ -167,7 +178,7 @@ const TabManagerOrder = () => {
         const onClickApprove = () => {
           OnClickApproveItem(params.row);
         };
-        const orderStatus = params.row.orderStatus;
+        const orderStatus = params.row.status;
         var _props = {
           onClick: onClick,
           onClickApprove: onClickApprove,
@@ -177,56 +188,58 @@ const TabManagerOrder = () => {
       },
     },
   ];
+  const orders = useSelector((state) => state.shop.orders);
   useEffect(() => {
     _getCollectionListOrdered();
-  }, []);
-  const _getCollectionListOrdered = async () => {
-    const _listOrderCollection = collection(db, "listOrdered");
-    let _docsListOrders = await getDocs(_listOrderCollection);
-    const docsListOrder = _docsListOrders.docs.map((doc) => {
-      const data = doc?.data();
-      return data;
-    });
-    const _usersCollection = collection(db, "users");
-    let _docsUser = await getDocs(_usersCollection);
-    const docsUser = _docsUser.docs.map((doc) => {
-      const data = doc?.data();
-      return data;
-    });
-    const _productsCollection = collection(db, "products");
-    let _docsProducts = await getDocs(_productsCollection);
-    const docsProducts = _docsProducts.docs.map((doc) => {
-      const data = doc?.data();
-      return data;
-    });
-    docsListOrder.map((_dataOrder) => {
-      docsUser.map((_dataUser) => {
-        if (_dataOrder.userId == _dataUser.userId) {
-          _dataOrder.userName = _dataUser.fullname;
-          _dataOrder.userImg = _dataUser.avatarId;
-          return _dataOrder;
-        } else {
-          console.log("No valid user");
-        }
-      });
-    });
+  }, [dataOrder]);
+  const _getCollectionListOrdered = () => {
+    // const _listOrderCollection = collection(db, "listOrdered");
+    // let _docsListOrders = await getDocs(_listOrderCollection);
+    // const docsListOrder = _docsListOrders.docs.map((doc) => {
+    //   const data = doc?.data();
+    //   return data;
+    // });
+    // const _usersCollection = collection(db, "users");
+    // let _docsUser = await getDocs(_usersCollection);
+    // const docsUser = _docsUser.docs.map((doc) => {
+    //   const data = doc?.data();
+    //   return data;
+    // });
+    // const _productsCollection = collection(db, "products");
+    // let _docsProducts = await getDocs(_productsCollection);
+    // const docsProducts = _docsProducts.docs.map((doc) => {
+    //   const data = doc?.data();
+    //   return data;
+    // });
+    // docsListOrder.map((_dataOrder) => {
+    //   docsUser.map((_dataUser) => {
+    //     if (_dataOrder.userId == _dataUser.userId) {
+    //       _dataOrder.userName = _dataUser.fullname;
+    //       _dataOrder.userImg = _dataUser.avatarId;
+    //       return _dataOrder;
+    //     } else {
+    //       console.log("No valid user");
+    //     }
+    //   });
+    // });
 
-    docsListOrder.map((element) => {
-      element.productInfo.map((_productInfo) => {
-        docsProducts.map((_dataProduct) => {
-          if (_productInfo.productId == _dataProduct.id) {
-            _productInfo.itemImg = _dataProduct.image;
-            _productInfo.itemName = _dataProduct.name;
-            _productInfo.itemPrice = _dataProduct.price;
-            element.subTotal =
-              _productInfo.productQuantities * _dataProduct.price;
-            element.Total = element.subTotal + element.shippingTotal;
-          }
-        });
-      });
-    });
+    // docsListOrder.map((element) => {
+    //   element.productInfo.map((_productInfo) => {
+    //     docsProducts.map((_dataProduct) => {
+    //       if (_productInfo.productId == _dataProduct.id) {
+    //         _productInfo.itemImg = _dataProduct.image;
+    //         _productInfo.itemName = _dataProduct.name;
+    //         _productInfo.itemPrice = _dataProduct.price;
+    //         element.subTotal =
+    //           _productInfo.productQuantities * _dataProduct.price;
+    //         element.Total = element.subTotal + element.shippingTotal;
+    //       }
+    //     });
+    //   });
+    // });
 
-    setDataOrder(docsListOrder);
+    setDataOrder(orders);
+    console.log(dataOrder);
   };
 
   const OnClickInfoItem = (props) => {

@@ -9,21 +9,12 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase/firebase-config";
 import DataTable from "../../organisms/DataTable/DataTable";
+import { useSelector } from "react-redux";
 
 const List = () => {
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    (async () => {
-      const colRef = collection(db, "users");
-      const snapshots = await getDocs(colRef);
-      const docs = snapshots.docs.map((doc) => {
-        const data = doc.data();
-        data.id = doc.id;
-        return data;
-      });
-      setUsers(docs);
-    })();
-  }, []);
+  const users = useSelector((state) => state.shop.customers);
+  console.log("Customer: ", users);
+  useEffect(() => {}, [users]);
   return (
     <div className="list">
       <Sidebar />

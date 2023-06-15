@@ -17,6 +17,7 @@ import InputUser from "../../molecules/Input/InputUser";
 import IconEyeOpen from "../../../assets/icons/IconEyes/IconEyeOpen";
 import IconEyeClose from "../../../assets/icons/IconEyes/IconEyeClose";
 import { connectStorageEmulator } from "firebase/storage";
+
 //Style CSS
 const FlexBox = styled(Box)(() => ({
   display: "flex",
@@ -75,6 +76,10 @@ const Login = () => {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const handleResponse = (response) => {
+    console.log("RESPONSEEEE");
+    console.log(response.message); // Check the value of the error message
+    console.log(response.success); // Check the value of the error message
+
     if (!response.success) {
       toast.error(response.message);
       console.log(response.message);
