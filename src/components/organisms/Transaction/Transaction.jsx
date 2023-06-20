@@ -30,7 +30,7 @@ const Transaction = () => {
   };
   useEffect(() => {
     getOrdersData();
-  }, [orders]);
+  }, []);
   return <Table orders={orders} />;
 };
 

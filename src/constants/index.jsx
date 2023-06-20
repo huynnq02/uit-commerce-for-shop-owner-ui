@@ -190,7 +190,7 @@ export const DATA_CHART = [
   { name: "March", Total: 820 },
   { name: "April", Total: 1620 },
   { name: "May", Total: 820 },
-  { name: "June", Total: 1720 },
+  // { name: "June", Total: 1720 },
 ];
 
 export const PRODUCT_INITITAL_VALUE = {

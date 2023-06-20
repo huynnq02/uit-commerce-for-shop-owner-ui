@@ -13,8 +13,25 @@ import {
 } from "recharts";
 import { DATA_CHART } from "../../../constants";
 import PropsType from "prop-types";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Chart = ({ aspect, title }) => {
+  const [dataChart, setDataChart] = useState([]);
+  const sales_last_six_months = useSelector(
+    (state) => state.shop.sales_last_six_months
+  );
+  useEffect(() => {
+    if (sales_last_six_months) {
+      const chartData = Object.entries(sales_last_six_months).map(
+        ([name, total]) => ({ name, total })
+      );
+      setDataChart(chartData);
+      // console.log("chart data: ", chartData);
+    }
+  }, [sales_last_six_months]);
+
   return (
     <div className="chart">
       <div className="title">{title}</div>
@@ -22,7 +39,7 @@ const Chart = ({ aspect, title }) => {
         <AreaChart
           width={730}
           height={250}
-          data={DATA_CHART}
+          data={dataChart}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
           <defs>
@@ -36,7 +53,7 @@ const Chart = ({ aspect, title }) => {
           <Tooltip />
           <Area
             type="monotone"
-            dataKey="Total"
+            dataKey="total"
             stroke="#8884d8"
             fillOpacity={1}
             fill="url(#total)"

@@ -2,7 +2,7 @@
  * Detail Product and update product component
  * file: ProductDetail.jsx
  */
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useReducer } from "react";
 import { useParams } from "react-router-dom";
 import { doc, collection, updateDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -19,6 +19,7 @@ import CircularUnderLoad from "../../atoms/CircularLoading/CircularLoading";
 import Button from "../../atoms/Button/Button";
 import AlertMessage from "../../atoms/Alert/Alert";
 import "./ProductDetail.scss";
+import { useSelector } from "react-redux";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState(PRODUCT_INITITAL_VALUE);
@@ -28,10 +29,27 @@ const ProductDetail = () => {
   const [errorType, setErrorType] = useState("error");
   const eRef = useRef(null);
   let { productId } = useParams();
-
+  const items = useSelector((state) => state.shop.items);
   useEffect(() => {
+    // find product that has items id
+    const temp = items.find((item) => item.id === productId);
+    const product = {
+      name: temp.name,
+      price: temp.price,
+      quantities: temp.quantity,
+      sales: temp.discount,
+      description: temp.description,
+      category: temp.category,
+      sizes: temp.sizes,
+      color: temp.colors,
+      image: temp.image,
+      detailImages: temp.detail_image,
+      active: temp.active,
+    };
+    setProduct(product);
+    console.log("yesssss");
     console.log("product id:", productId);
-  }, [productId]);
+  }, []);
 
   /**
    * handle validate inputs

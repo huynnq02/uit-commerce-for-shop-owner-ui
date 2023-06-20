@@ -14,6 +14,9 @@ import { useSelector } from "react-redux";
 
 const Widget = ({ type }) => {
   let data;
+  const total_sales_today = useSelector(
+    (state) => state.shop.total_sales_today
+  );
   const customers = useSelector((state) => state.shop.customers);
   const orders = useSelector((state) => state.shop.orders);
   switch (type) {
@@ -76,7 +79,7 @@ const Widget = ({ type }) => {
             </li>
           </Link>
         ),
-        number: "4.800.000",
+        number: total_sales_today,
         percentage: "40",
         icon: (
           <MonetizationOnOutlined

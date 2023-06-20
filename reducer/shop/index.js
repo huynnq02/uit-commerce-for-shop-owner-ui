@@ -12,9 +12,25 @@ const initialState = {
 };
 export default function ShopReducer(state = initialState, action) {
   switch (action.type) {
+    case "get_statistics.reply":
+      console.log(action.type);
+
+      if (action.data.success === true) {
+        console.log("Da thanh cong:");
+        console.log(
+          "total_sales_today: ",
+          action.data.data.total_sales_last_week
+        );
+        return {
+          ...state,
+          sales_last_six_months: action.data.data.sales_last_six_months,
+          total_sales_today: action.data.data.total_sales_today,
+          total_sales_last_week: action.data.data.total_sales_last_week,
+          total_sales_last_month: action.data.data.total_sales_last_month,
+        };
+      }
+      break;
     case "get_list_customers.reply":
-      console.log(action.data);
-      console.log("Van zo dc bthg ma ta:", action.data.data);
       if (action.data.success === true) {
         console.log("Van zo dc bthg ma ta:", action.data.data);
         return {

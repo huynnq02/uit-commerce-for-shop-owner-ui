@@ -36,13 +36,26 @@ const Home = () => {
       toast.error(response.message);
       return;
     }
-    console.log("Thanh cong r");
     console.log(response.data);
   };
   const getCustomerData = () => {
     dispatch(
       getAPIActionJSON("get_list_customers", null, null, `/${shopId}`, (e) =>
         handleResponseGetCustomer(e)
+      )
+    );
+  };
+  const handleResponseGetStatistics = (response) => {
+    if (!response.success) {
+      toast.error(response.message);
+      return;
+    }
+    console.log("statistics: ", response.data);
+  };
+  const getStatisticsData = () => {
+    dispatch(
+      getAPIActionJSON("get_statistics", null, null, `/${shopId}`, (e) =>
+        handleResponseGetStatistics(e)
       )
     );
   };
@@ -63,6 +76,7 @@ const Home = () => {
   useEffect(() => {
     getItemsData();
     getCustomerData();
+    getStatisticsData();
     // getOrdersData();
   }, [dispatch, shopId]);
   return (

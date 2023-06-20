@@ -1,4 +1,14 @@
 export const getAPIs = {
+  update_order: {
+    name: "update_order",
+    path: "/api/orders/update_order",
+    method: "POST",
+  },
+  get_statistics: {
+    name: "get_statistics",
+    path: "/api/shops/get_statistics",
+    method: "GET",
+  },
   get_shop_orders: {
     name: "get_shop_orders",
     path: "/api/orders/get_shop_orders",

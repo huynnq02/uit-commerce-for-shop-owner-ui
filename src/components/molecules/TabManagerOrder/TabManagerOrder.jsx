@@ -30,6 +30,7 @@ const TabManagerOrder = () => {
   const [dataRowSelected, setDataRowSelected] = useState([]);
   const [dataRowSelectedChangeStatus, setDataRowSelectedChangeStatus] =
     useState([]);
+
   // columns for DataGrid table
   const columns = [
     {
@@ -147,7 +148,7 @@ const TabManagerOrder = () => {
       flex: 2,
       editable: true,
       type: "singleSelect",
-      valueOptions: ["Completed", "Pending", "Dispatch", "Cancelled"],
+      valueOptions: ["", "Completed", "Pending", "Dispatch", "Cancelled"],
       renderHeader: (params) => (
         <strong>
           <p>Status</p>
@@ -193,60 +194,17 @@ const TabManagerOrder = () => {
     _getCollectionListOrdered();
   }, [dataOrder]);
   const _getCollectionListOrdered = () => {
-    // const _listOrderCollection = collection(db, "listOrdered");
-    // let _docsListOrders = await getDocs(_listOrderCollection);
-    // const docsListOrder = _docsListOrders.docs.map((doc) => {
-    //   const data = doc?.data();
-    //   return data;
-    // });
-    // const _usersCollection = collection(db, "users");
-    // let _docsUser = await getDocs(_usersCollection);
-    // const docsUser = _docsUser.docs.map((doc) => {
-    //   const data = doc?.data();
-    //   return data;
-    // });
-    // const _productsCollection = collection(db, "products");
-    // let _docsProducts = await getDocs(_productsCollection);
-    // const docsProducts = _docsProducts.docs.map((doc) => {
-    //   const data = doc?.data();
-    //   return data;
-    // });
-    // docsListOrder.map((_dataOrder) => {
-    //   docsUser.map((_dataUser) => {
-    //     if (_dataOrder.userId == _dataUser.userId) {
-    //       _dataOrder.userName = _dataUser.fullname;
-    //       _dataOrder.userImg = _dataUser.avatarId;
-    //       return _dataOrder;
-    //     } else {
-    //       console.log("No valid user");
-    //     }
-    //   });
-    // });
-
-    // docsListOrder.map((element) => {
-    //   element.productInfo.map((_productInfo) => {
-    //     docsProducts.map((_dataProduct) => {
-    //       if (_productInfo.productId == _dataProduct.id) {
-    //         _productInfo.itemImg = _dataProduct.image;
-    //         _productInfo.itemName = _dataProduct.name;
-    //         _productInfo.itemPrice = _dataProduct.price;
-    //         element.subTotal =
-    //           _productInfo.productQuantities * _dataProduct.price;
-    //         element.Total = element.subTotal + element.shippingTotal;
-    //       }
-    //     });
-    //   });
-    // });
-
     setDataOrder(orders);
     console.log(dataOrder);
   };
 
   const OnClickInfoItem = (props) => {
+    console.log("on click info item: ", props);
     setDataRowSelected(props);
     setOpenPopup(true);
   };
   const OnClickApproveItem = (props) => {
+    console.log("on click approve item: ", props);
     setDataRowSelectedChangeStatus(props);
     setOpenPopupChangeStatus(true);
   };
@@ -264,6 +222,10 @@ const TabManagerOrder = () => {
     );
   };
   const StatusCheckerRender = (props) => {
+    const handleStatusChange = (event) => {
+      const selectedStatus = event.target.value;
+      console.log(selectedStatus);
+    };
     if (props === "Dispatch") {
       return (
         <div className="containerDispatchStatus">
@@ -474,6 +436,7 @@ const TabManagerOrder = () => {
   };
 
   const handleChange = (event, newValue) => {
+    console.log("newValue ", newValue);
     setValue(newValue);
   };
   const _handleClosePopup = () => {
