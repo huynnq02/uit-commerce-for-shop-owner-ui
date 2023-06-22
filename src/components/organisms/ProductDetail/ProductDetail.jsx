@@ -19,7 +19,11 @@ import CircularUnderLoad from "../../atoms/CircularLoading/CircularLoading";
 import Button from "../../atoms/Button/Button";
 import AlertMessage from "../../atoms/Alert/Alert";
 import "./ProductDetail.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getAPIActionJSON,
+  getAPIActionJSONNoMulti,
+} from "../../../../api/ApiActions";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState(PRODUCT_INITITAL_VALUE);
@@ -29,6 +33,7 @@ const ProductDetail = () => {
   const [errorType, setErrorType] = useState("error");
   const eRef = useRef(null);
   let { productId } = useParams();
+  const dispatch = useDispatch();
   const items = useSelector((state) => state.shop.items);
   useEffect(() => {
     // find product that has items id
@@ -183,36 +188,58 @@ const ProductDetail = () => {
    * @private
    * @params none
    */
-  const _handleSubmit = () => {
+  const handleResponse = (response) => {
+    if (!response.success) {
+      toast.error(response.message);
+      console.log(response.message);
+      return;
+    }
+    setOpen(false);
+    setErrorType("success");
+    setErrorMess("Adding success!");
+    setOpenMess(true);
+    window.scrollTo(0, 0);
+  };
+  const _handleSubmit = async () => {
     if (_handleValidation()) {
-      setOpen(true);
-      _handlePushListImages().then(() => {
-        _handlePushImage().then(async () => {
-          const newRef = doc(collection(db, `products`), productId);
-          await updateDoc(newRef, {
-            active: product.active,
-            category: product.category,
-            color: product.color,
-            description: product.description,
-            name: product.name,
-            price: Number(product.price),
-            quantities: Number(product.quantities),
-            sales: Number(product.sales),
-            sizes: product.sizes,
-          }).then(() => {
-            setOpen(false);
-            setErrorType("success");
-            setErrorMess("Update success!");
-            setOpenMess(true);
-            eRef.current?.scrollIntoView({ behavior: "smooth" });
-            window.scrollTo(0, 0);
-          });
-        });
-      });
+      const data = {
+        active: product.active,
+        category: product.category,
+        colors: product.color.join(", "),
+        description: product.description,
+        name: product.name,
+        price: Number(product.price),
+        quantity: Number(product.quantities),
+        discount: product.sales,
+        sizes: product.sizes.join(", "),
+        productId: productId,
+      };
+      console.log(data);
+      const formData = new FormData();
+      formData.append("active", product.active);
+      formData.append("category", product.category);
+      formData.append("colors", product.color.join(", "));
+      formData.append("description", product.description);
+      formData.append("name", product.name);
+      formData.append("price", Number(product.price));
+      formData.append("quantity", Number(product.quantities));
+      formData.append("discount", product.sales);
+      formData.append("sizes", product.sizes.join(", "));
+      dispatch(
+        getAPIActionJSON(
+          "update_item",
+          {
+            formData,
+          },
+          null,
+          `/${productId}`,
+          (e) => handleResponse(e)
+        )
+      );
     } else {
-      eRef.current?.scrollIntoView({ behavior: "smooth" });
       setErrorType("error");
       setOpenMess(true);
+      elementRef.current?.scrollIntoView({ behavior: "smooth" });
       window.scrollTo(0, 0);
     }
   };

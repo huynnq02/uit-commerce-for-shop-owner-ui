@@ -2,6 +2,16 @@ export const getAPIs = {
   update_order: {
     name: "update_order",
     path: "/api/orders/update_order",
+    method: "PUT",
+  },
+  update_item: {
+    name: "update_item",
+    path: "/api/items/update_item",
+    method: "PUT",
+  },
+  update_order: {
+    name: "update_order",
+    path: "/api/orders/update_order",
     method: "POST",
   },
   get_statistics: {
